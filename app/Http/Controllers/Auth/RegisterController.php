@@ -67,6 +67,17 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => $data['role'],
+            'whatsapp' => $data['whatsapp'],
         ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+         return match ($user->role) {
+            'admin'   => redirect()->route('admin.dashboard'),
+            'creator' => redirect()->route('creator.dashboard'),
+            default   => redirect()->route('user.dashboard'),
+        };
     }
 }

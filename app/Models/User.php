@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'bio',
+        'whatsapp',
+        'profile_photo',
     ];
 
     /**
@@ -45,4 +49,32 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+    public function templates()
+    {
+        return $this->hasMany(Template::class);
+    }
+
+    public function downloadedTemplates()
+    {
+        return $this->belongsToMany(
+            Template::class,
+            'template_downloads',
+            'user_id',
+            'template_id'
+        );
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+
+
 }
