@@ -12,6 +12,7 @@ class Template extends Model
         'user_id',
         'title',
         'description',
+        'status',
         'price',
         'file',
         'preview',
