@@ -28,6 +28,11 @@
                             <h5 class="fw-bold mb-2">Saya Butuh Editor</h5>
                             <p class="text-muted small mb-0">Cari editor profesional</p>
                         </div>
+
+                        <div>
+                            <p align="center">Sudah Punya Akun?</p>
+                           <a href="{{ route('login') }}" type="submit" class="btn btn-gradient w-100 py-2 rounded-pill fw-semibold">Login</a>
+                        </div>
                     </div>
 
                     <!-- Step 2: Login Form -->
@@ -96,7 +101,7 @@
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
                     @auth
                         <div class="d-flex gap-3 justify-content-center flex-wrap">
-                            <a href="{{ auth()->user()->role === 'creator' ? route('creator.dashboard') : route('user.dashboard') }}" class="btn btn-gradient btn-lg rounded-pill px-5">
+                            <a href="{{ auth()->user()->role === 'creator' ? route('creator.dashboard') : route('user.home') }}" class="btn btn-gradient btn-lg rounded-pill px-5">
                                 Masuk Dashboard
                             </a>
                         </div>
@@ -187,10 +192,13 @@
                                 <p class="text-muted small mb-0">Perlihatkan hasil editing dan template untuk menarik lebih banyak klien</p>
                             </div>
                         </div>
-                        
-                        <button class="btn btn-gradient rounded-pill px-4 mt-4" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        @auth
+                            
+                        @else
+                        <button class="btn btn-gradient rounded-pill px-4 mt-4" onclick="goToRegister('creator')">
                             Mulai Jual Jasa
                         </button>
+                        @endauth
                     </div>
                 </div>
 
@@ -242,10 +250,12 @@
                                 <p class="text-muted small mb-0">Pilih editor berdasarkan review dan karya sebelumnya</p>
                             </div>
                         </div>
-                        
-                        <button class="btn btn-outline-secondary rounded-pill px-4 mt-4" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        @auth
+                        @else
+                        <button class="btn btn-outline-secondary rounded-pill px-4 mt-4" onclick="goToRegister('user')">
                             Cari Editor Sekarang
                         </button>
+                        @endauth
                     </div>
                 </div>
             </div>

@@ -43,7 +43,7 @@ class LoginController extends Controller
          return match ($user->role) {
             'admin'   => redirect()->route('admin.dashboard'),
             'creator' => redirect()->route('creator.dashboard'),
-            default   => redirect()->route('user.dashboard'),
+            default   => redirect()->route('user.home'),
         };
     }
 

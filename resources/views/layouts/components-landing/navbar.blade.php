@@ -1,7 +1,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #FAF6F0;">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center " href="#">
+            <a class="navbar-brand d-flex align-items-center" href="#">
                 <img src="{{ asset ('landing/img/LandingVreator1.png') }}"
                     alt="Vreator Logo"
                     class="brand-logo">
@@ -24,7 +24,7 @@
                     </li>
                 </ul>
                 @auth
-                <a href="{{ auth()->user()->role === 'creator' ? route('creator.profile.index') : route('profile.index') }}" class="btn btn-gradient rounded-pill px-4"><i class="bi bi-person-fill"></i></a>
+                <a href="{{ auth()->user()->role === 'creator' ? route('creator.dashboard') : route('user.home') }}" class="btn btn-gradient rounded-pill px-4"><i class="bi bi-person-fill"></i></a>
                 @else
                 <button class="btn btn-gradient rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#loginModal">Daftar Sekarang</button>
                 @endauth

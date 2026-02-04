@@ -365,7 +365,7 @@
 
                         <!-- Login Link -->
                         <div class="login-link">
-                            Sudah punya akun? <a href="login.html">Masuk di sini</a>
+                            Sudah punya akun? <a href="{{ route('login')}}">Masuk di sini</a>
                         </div>
                     </div>
                 </div>
