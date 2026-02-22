@@ -227,7 +227,7 @@
 <div class="register-wrapper">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-7">
+            <div class="col-md-6 col-lg-5">
                 
                 <!-- Brand Logo -->
                 <div class="brand-logo">

@@ -41,12 +41,12 @@
                                     </span>
                                 </td>
                                 <td class="text-end">
-                                    <a href="{{ route('creator.service.edit', $service->id) }}"
+                                    <a href="{{ route('creator.service.edit', $service) }}"
                                        class="btn btn-sm btn-warning">
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('creator.service.destroy', $service->id) }}"
+                                    <form action="{{ route('creator.service.destroy', $service) }}"
                                           method="POST"
                                           class="d-inline"
                                           onsubmit="return confirm('Yakin hapus service ini?')">

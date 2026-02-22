@@ -17,16 +17,16 @@
                             <div class="role-icon">
                                 <i class="bi bi-camera-video-fill"></i>
                             </div>
-                            <h5 class="fw-bold mb-2">Saya Editor / Creator</h5>
-                            <p class="text-muted small mb-0">Jual jasa editing video</p>
+                            <h5 class="fw-bold mb-2">Saya Editor</h5>
+                            <p class="text-muted small mb-0">Jual jasa editing video/photo</p>
                         </div>
 
                         <div class="role-option" onclick="goToRegister('user')">
                             <div class="role-icon">
                                 <i class="bi bi-bag-fill"></i>
                             </div>
-                            <h5 class="fw-bold mb-2">Saya Butuh Editor</h5>
-                            <p class="text-muted small mb-0">Cari editor profesional</p>
+                            <h5 class="fw-bold mb-2">Saya Pembeli</h5>
+                            <p class="text-muted small mb-0">Cari Template dan Jasa</p>
                         </div>
 
                         <div>

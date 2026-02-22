@@ -212,7 +212,13 @@
                         <a href="{{ route('password.request') }}">Lupa password?</a>
                     @endif
                     <br>
-                    Belum punya akun? <a href="{{ route('register') }}">Daftar</a>
+                    @if(!request('role'))
+                    <div class="mt-2 text-center">
+                        Daftar sebagai:
+                        <a href="{{ route('register', ['role' => 'creator']) }}">Creator</a> |
+                        <a href="{{ route('register', ['role' => 'user']) }}">User</a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

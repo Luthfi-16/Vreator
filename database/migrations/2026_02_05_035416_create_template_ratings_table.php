@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('template_ratings', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id')->unique();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('template_id');
-            $table->integer('total_price');
-            $table->enum('status', ['pending', 'paid', 'failed', 'expired'])->default('pending');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
+            $table->tinyInteger('rating')->unsigned();
+            $table->text('review')->nullable();
+            $table->unique(['user_id', 'template_id']);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('template_ratings');
     }
 };

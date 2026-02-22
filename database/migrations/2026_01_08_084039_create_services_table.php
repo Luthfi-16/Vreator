@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description');
             $table->integer('price');
             $table->enum('status',['active','inactive']);

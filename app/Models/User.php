@@ -6,11 +6,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +23,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'password',
         'role',
@@ -75,6 +80,39 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
+    public function templateRatings()
+    {
+        return $this->hasMany(TemplateRating::class);
+    }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Saat create
+        static::creating(function ($user) {
+            $user->slug = static::generateSlug($user->name);
+        });
+
+        // Saat update name
+        static::updating(function ($user) {
+            if ($user->isDirty('name')) {
+                $user->slug = static::generateSlug($user->name);
+            }
+        });
+    }
+
+    private static function generateSlug($name)
+    {
+        $slug = Str::slug($name);
+        $count = static::where('slug', 'LIKE', "$slug%")->count();
+
+        return $count ? "{$slug}-" . ($count + 1) : $slug;
+    }   
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
 }

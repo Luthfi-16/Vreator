@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name'     => 'Admin',
+            'slug'     => Str::slug('Admin'),
             'email'    => 'adminVreator@gmail.com',
             'password' => Hash::make('admin1234'),
             'role' => 'admin',

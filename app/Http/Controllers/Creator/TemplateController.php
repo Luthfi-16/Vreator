@@ -39,7 +39,25 @@ class TemplateController extends Controller
             'preview'     => 'required|image|max:2048',
         ]);
 
-        $filePath    = $request->file('file')->store('templates/files', 'public');
+        $file = $request->file('file');
+
+        $originalName = $file->getClientOriginalName(); // preset.xml
+        $extension = $file->getClientOriginalExtension();
+        $filename = pathinfo($originalName, PATHINFO_FILENAME);
+
+        $folder = 'templates/files/creator-' . Auth::id();
+        $finalName = $originalName;
+        $counter = 1;
+
+        // anti ketiban
+        while (Storage::disk('public')->exists($folder.'/'.$finalName)) {
+            $finalName = $filename . '(' . $counter . ').' . $extension;
+            $counter++;
+        }
+
+        // simpan file dengan nama aman
+        $filePath = $file->storeAs($folder, $finalName, 'public');
+
         $previewPath = $request->file('preview')->store('templates/previews', 'public');
 
         Template::create([
@@ -58,11 +76,10 @@ class TemplateController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Template $template)
     {
-        $template = Template::where('id', $id)
-            ->where('user_id', Auth::id())
-            ->firstOrFail();
+        abort_if($template->user_id !== Auth::id(), 403);
+
 
         return view('creator.template.edit', compact('template'));
     }
@@ -70,15 +87,14 @@ class TemplateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Template $template)
     {
-        $template = Template::where('id', $id)
-            ->where('user_id', Auth::id())
-            ->firstOrFail();
+        abort_if($template->user_id !== Auth::id(), 403);
+
 
         $request->validate([
             'title'       => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'required',    
             'price'       => 'required|integer|min:0',
             'file'        => 'nullable|file',
             'preview'     => 'nullable|image|max:2048',
@@ -86,7 +102,24 @@ class TemplateController extends Controller
 
         if ($request->hasFile('file')) {
             Storage::disk('public')->delete($template->file);
-            $template->file = $request->file('file')->store('templates/files', 'public');
+            $file = $request->file('file');
+
+            $originalName = $file->getClientOriginalName();
+            $extension    = $file->getClientOriginalExtension();
+            $filename     = pathinfo($originalName, PATHINFO_FILENAME);
+
+            $folder    = 'templates/files/creator-' . Auth::id();
+            $finalName = $originalName;
+            $counter   = 1;
+
+            while (Storage::disk('public')->exists($folder . '/' . $finalName)) {
+                $finalName = $filename . '(' . $counter . ').' . $extension;
+                $counter++;
+            }
+
+            Storage::disk('public')->delete($template->file);
+            $template->file = $file->storeAs($folder, $finalName, 'public');
+
         }
 
         if ($request->hasFile('preview')) {
@@ -107,11 +140,10 @@ class TemplateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Template $template)
     {
-        $template = Template::where('id', $id)
-            ->where('user_id', Auth::id())
-            ->firstOrFail();
+        abort_if($template->user_id !== Auth::id(), 403);
+
 
         Storage::disk('public')->delete([
             $template->file,

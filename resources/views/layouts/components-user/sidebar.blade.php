@@ -9,21 +9,29 @@
             </button>
         </div>
         <div class="sidebar-menu">
-            <a href="#" class="sidebar-menu-item active">
+            <a href="{{ route('user.home') }}"
+            class="sidebar-menu-item {{ request()->routeIs('user.home') ? 'active' : '' }}">
                 <i class="bi bi-house-door-fill"></i>
                 <span>Beranda</span>
             </a>
-            <a href="#" class="sidebar-menu-item">
+
+            <a href="{{-- {{ route('user.download') }} --}}"
+            class="sidebar-menu-item {{ request()->routeIs('user.download') ? 'active' : '' }}">
                 <i class="bi bi-download"></i>
                 <span>Hasil Download</span>
             </a>
-            <a href="#" class="sidebar-menu-item">
+
+            <a href="{{-- {{ route('user.transaction') }} --}}"
+            class="sidebar-menu-item {{ request()->routeIs('user.transaction') ? 'active' : '' }}">
                 <i class="bi bi-clock-history"></i>
                 <span>Riwayat Transaksi</span>
             </a>
-            <a href="#" class="sidebar-menu-item">
+
+            <a href="{{ route('user.listtemplate') }}"
+            class="sidebar-menu-item {{ request()->routeIs('user.listtemplate') ? 'active' : '' }}">
                 <i class="bi bi-collection"></i>
                 <span>Template</span>
             </a>
+
         </div>
     </div>

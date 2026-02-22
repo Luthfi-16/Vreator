@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->integer('price');
             $table->string('file');
             $table->string('preview');
+            $table->integer('download_count')->default(0);
+            $table->float('average_rating')->default(0);
+            $table->integer('rating_count')->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

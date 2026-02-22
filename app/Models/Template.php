@@ -3,6 +3,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Template extends Model
 {
@@ -11,12 +13,47 @@ class Template extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'slug',
         'description',
         'status',
         'price',
         'file',
         'preview',
+        'download_count',
+        'average_rating',
+        'rating_count',        
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Saat create
+        static::creating(function ($template) {
+            $template->slug = static::generateSlug($template->title);
+        });
+
+        // Saat update title
+        static::updating(function ($template) {
+            if ($template->isDirty('title')) {
+                $template->slug = static::generateSlug($template->title);
+            }
+        });
+    }
+
+    private static function generateSlug($title)
+    {
+        $slug = Str::slug($title);
+        $count = static::where('slug', 'LIKE', "$slug%")->count();
+
+        return $count ? "{$slug}-" . ($count + 1) : $slug;
+    }   
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 
     public function user()
     {
@@ -32,4 +69,20 @@ class Template extends Model
             'user_id'
         );
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(TemplateRating::class);
+    }
+
+    public function averageRating()
+    {
+        return $this->ratings()->avg('rating');
+    }
+
+    public function ratingCount()
+    {
+        return $this->ratings()->count();
+    }
+
 }

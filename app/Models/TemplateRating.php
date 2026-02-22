@@ -1,19 +1,16 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class TemplateRating extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
-        'order_id',
         'template_id',
-        'total_price',
-        'status',
+        'rating',
+        'review',
     ];
 
     public function user()

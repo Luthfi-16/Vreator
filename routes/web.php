@@ -8,7 +8,7 @@ use App\Http\Controllers\Creator\ServiceController as CreatorServiceController;
 use App\Http\Controllers\Creator\TemplateController as CreatorTemplateController;
 use App\Http\Controllers\Creator\ProfileController as CreatorProfileController;
 use App\Http\Controllers\User\HomeController as UserHomeCotroller;
-use App\Http\Controllers\User\ListTemplateController as UserListTemplateController;
+use App\Http\Controllers\User\TemplateController as UserTemplateController;
 use App\Http\Controllers\ProfileController;
 
 
@@ -38,7 +38,12 @@ Route::middleware(['auth', 'role:creator'])->prefix('creator')->name('creator.')
 
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/home', [UserHomeCotroller::class, 'index'])->name('home');
-    Route::get('/template', [UserListTemplateController::class, 'index'])->name('listtemplate');
+    Route::get('/template', [UserTemplateController::class, 'index'])->name('listtemplate');
+    Route::get('/template/{template}', [UserTemplateController::class, 'show'])->name('template.show');
+    Route::get('/template/{template}/download', [UserTemplateController::class, 'download'])->name('template.download');
+    Route::post('/{template}/rate', [UserTemplateController::class, 'rate'])->name('template.rate')->middleware('auth');
+
+
 });
 
 

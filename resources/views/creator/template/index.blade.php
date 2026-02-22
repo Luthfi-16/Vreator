@@ -51,12 +51,12 @@
                                 </td>
 
                                 <td class="text-end">
-                                    <a href="{{ route('creator.template.edit', $template->id) }}"
+                                    <a href="{{ route('creator.template.edit', $template) }}"
                                        class="btn btn-sm btn-warning">
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('creator.template.destroy', $template->id) }}"
+                                    <form action="{{ route('creator.template.destroy', $template) }}"
                                           method="POST"
                                           class="d-inline"
                                           onsubmit="return confirm('Yakin hapus template ini?')">

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('template_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
+            $table->unique(['user_id', 'template_id']);
+
             $table->timestamps();
         });
     }

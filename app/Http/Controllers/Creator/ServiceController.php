@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Creator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -55,7 +56,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $this->authorizeService($service);
+        abort_if($service->user_id !== Auth::id(), 403);
 
         return view('creator.service.show', compact('service'));
     }
@@ -65,7 +66,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        $this->authorizeService($service);
+        abort_if($service->user_id !== Auth::id(), 403);
+
 
         return view('creator.service.edit', compact('service'));
     }
@@ -75,7 +77,8 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        $this->authorizeService($service);
+        abort_if($service->user_id !== Auth::id(), 403);
+
 
         $request->validate([
             'title'       => 'required|string|max:255',
@@ -101,7 +104,8 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        $this->authorizeService($service);
+        abort_if($service->user_id !== Auth::id(), 403);
+
 
         $service->delete();
 

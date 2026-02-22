@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('creator.template.update', $template->id) }}" 
+                    <form action="{{ route('creator.template.update', $template) }}" 
                           method="POST" 
                           enctype="multipart/form-data">
                         @csrf
