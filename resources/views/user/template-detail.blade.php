@@ -1,6 +1,11 @@
 @extends('layouts.user')
 @section('content')
-
+@php
+    $paidTransaction = \App\Models\Transaction::where('user_id', auth()->id())
+        ->where('template_id', $template->id)
+        ->where('status', 'paid')
+        ->exists();
+@endphp
 <div class="main-content">
     <div class="container">
         
@@ -40,18 +45,22 @@
                     @endif
 
                     {{-- Action Button --}}
-                    @if($template->price == 0)
+                    @if($template->price == 0 || $paidTransaction)
+
                         <a href="{{ route('user.template.download', $template) }}"
                         class="btn-gradient w-100 mb-3 text-center"
                         style="padding: 18px; font-size: 1.1rem;">
-                            Download Gratis
+                            Download Template
                         </a>
+
                     @else
-                        <button type="button"
-                                class="btn-gradient w-100 mb-3"
-                                style="padding: 18px; font-size: 1.1rem;">
+
+                        <button id="pay-button"
+                            class="btn-gradient w-100 mb-3"
+                            style="padding: 18px; font-size: 1.1rem;">
                             Beli Sekarang
                         </button>
+
                     @endif
                     @if($hasDownloaded)
                         <button type="button"
@@ -140,7 +149,7 @@
                             </h3>
 
                             <p style="font-size: 1.2rem; font-weight: 700; color: #27ae60;">
-                                 {{ $relatedTemplate->price == 0 ? 'Gratis' : 'IDR'.number_format($template->price) }}
+                                 {{ $relatedTemplate->price == 0 ? 'Gratis' : 'IDR'.number_format($relatedTemplate->price) }}
                             </p>
                         </div>
                     </a>
@@ -216,7 +225,55 @@
         </div>
     </div>
 </div>
+
 @endif
+<script src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('midtrans.client_key') }}">
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const payBtn = document.getElementById('pay-button');
+    if (!payBtn) return;
+
+    payBtn.addEventListener('click', function (e) {
+
+        e.preventDefault();
+
+        fetch("{{ route('user.checkout.template', $template) }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if (!data.snap_token) {
+                alert("Snap token tidak ada");
+                return;
+            }
+
+            snap.pay(data.snap_token, {
+                onSuccess: function(result){
+                    window.location.href = "/user/payment/success?order_id=" + result.order_id;
+                },
+                onPending: function(result){
+                    window.location.href = "/user/payment/success?order_id=" + result.order_id;
+                },
+                onError: function(result){
+                    alert("Pembayaran gagal");
+                }
+            });
+
+        })
+        .catch(err => console.log(err));
+
+    });
+
+});
+</script>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

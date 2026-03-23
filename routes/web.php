@@ -1,16 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\TemplateController as AdminTemplateController;
 use App\Http\Controllers\Creator\DashboardController as CreatorDashboardController;
+use App\Http\Controllers\Creator\ProfileController as CreatorProfileController;
 use App\Http\Controllers\Creator\ServiceController as CreatorServiceController;
 use App\Http\Controllers\Creator\TemplateController as CreatorTemplateController;
-use App\Http\Controllers\Creator\ProfileController as CreatorProfileController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController as UserHomeCotroller;
 use App\Http\Controllers\User\TemplateController as UserTemplateController;
-use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\User\TransactionController as UserTransactionController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing');
@@ -42,13 +42,12 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
     Route::get('/template/{template}', [UserTemplateController::class, 'show'])->name('template.show');
     Route::get('/template/{template}/download', [UserTemplateController::class, 'download'])->name('template.download');
     Route::post('/{template}/rate', [UserTemplateController::class, 'rate'])->name('template.rate')->middleware('auth');
-
-
+    Route::post('/checkout/{template}', [UserTransactionController::class, 'checkout'])->middleware('auth')->name('checkout.template');
+    Route::get('/payment/success', [UserTransactionController::class, 'success'])
+    ->name('payment.success');
 });
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
-

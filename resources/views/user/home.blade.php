@@ -5,9 +5,8 @@
             <div class="welcome-section">
                 <h1>Selamat Datang, John! 👋</h1>
                 <p>Temukan editor terbaik untuk konten Anda atau jelajahi template yang tersedia</p>
-                <a href="#" class="btn-gradient">
-                    <i class="bi bi-search"></i>
-                    Cari Editor Sekarang
+                <a href="{{ route ('user.listtemplate') }}" class="btn-gradient">
+                    Cari Template Sekarang
                 </a>
             </div>
 
@@ -43,7 +42,7 @@
             </div>
 
             <!-- Editor Section -->
-            <h2 class="section-title">Template Terlaris</h2>
+            <h2 class="section-title">Top Rated Template</h2>
             <div class="row g-4 mb-4">
                 {{-- <div class="col-lg-3 col-md-6">
                     <a href="#" class="editor-card">

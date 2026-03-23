@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('template_id');
             $table->integer('total_price');
-            $table->enum('status', ['pending', 'paid', 'failed', 'expired'])->default('pending');
+            $table->enum('status', ['pending', 'paid'])->default('pending');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
             $table->timestamps();
