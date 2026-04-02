@@ -13,6 +13,7 @@ class Transaction extends Model
         'order_id',
         'template_id',
         'total_price',
+        'snap_token',
         'status',
     ];
 

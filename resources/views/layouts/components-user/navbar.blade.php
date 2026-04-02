@@ -18,7 +18,7 @@
                             JD
                         </button>
                         <div class="profile-menu" id="profileMenu">
-                            <a href="{{ route('profile.index') }}" class="profile-menu-item">
+                            <a href="{{ route('user.profile.index') }}" class="profile-menu-item">
                                 <i class="bi bi-person"></i>
                                 <span>Profil Saya</span>
                             </a>

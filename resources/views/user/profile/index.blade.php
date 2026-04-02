@@ -330,5 +330,5 @@
 </div>
 
 {{-- MODAL --}}
-@include('profile.modal-edit')
+@include('user.profile.modal-edit')
 @endsection

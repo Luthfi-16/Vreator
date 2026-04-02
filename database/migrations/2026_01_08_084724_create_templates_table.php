@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('software_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('type', ['video', 'photo']);
             $table->integer('price');
             $table->string('file');
             $table->string('preview');
@@ -25,6 +28,8 @@ return new class extends Migration
             $table->float('average_rating')->default(0);
             $table->integer('rating_count')->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('software_id')->references('id')->on('software')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('template_categories')->onDelete('set null');
             $table->timestamps();
         });
     }

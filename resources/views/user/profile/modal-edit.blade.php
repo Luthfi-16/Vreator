@@ -203,7 +203,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
-            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

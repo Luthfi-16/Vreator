@@ -41,6 +41,51 @@
                             @enderror
                         </div>
 
+                        {{-- Software --}}
+                        <div class="mb-3">
+                            <label class="form-label">Software</label>
+                            <select name="software_id" class="form-select @error('software_id') is-invalid @enderror">
+                                <option value="">-- Pilih Software --</option>
+                                @foreach ($softwares as $software)
+                                    <option value="{{ $software->id }}" {{ old('software_id') == $software->id ? 'selected' : '' }}>
+                                        {{ $software->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('software_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Category --}}
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
+                                <option value="">-- Pilih Category --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Type --}}
+                        <div class="mb-3">
+                            <label class="form-label">Type</label>
+                            <select name="type" class="form-select @error('type') is-invalid @enderror" required>
+                                <option value="">-- Pilih Type --</option>
+                                <option value="video" {{ old('type') == 'video' ? 'selected' : '' }}>Video</option>
+                                <option value="photo" {{ old('type') == 'photo' ? 'selected' : '' }}>Photo</option>
+                            </select>
+                            @error('type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- Price --}}
                         <div class="mb-3">
                             <label class="form-label">Price (Rp)</label>
@@ -88,6 +133,7 @@
                                 Save Template
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>

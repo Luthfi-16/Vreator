@@ -81,6 +81,20 @@
         @if(auth()->user()->role === 'admin')
             <li class="sidebar-title">Admin</li>
 
+            <li class="sidebar-item {{ request()->routeIs('admin.software.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.software.index') }}" class="sidebar-link">
+                    <i class="bi bi-puzzle-fill"></i>
+                    <span>Software</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('admin.template-category.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.template-category.index') }}" class="sidebar-link">
+                    <i class="bi bi-tags-fill"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{ request()->routeIs('admin.service.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.service.index') }}" class="sidebar-link">
                     <i class="bi bi-gear-fill"></i>
@@ -101,8 +115,8 @@
         <li class="sidebar-title">Account</li>
             
         @if(auth()->user()->role === 'creator')
-            <li class="sidebar-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
-                <a href="{{ route('profile.index') }}" class="sidebar-link">
+            <li class="sidebar-item {{ request()->routeIs('creator.profile.*') ? 'active' : '' }}">
+                <a href="{{ route('creator.profile.index') }}" class="sidebar-link">
                     <i class="bi bi-person-fill"></i>
                     <span>Profile</span>
                 </a>

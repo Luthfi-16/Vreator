@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Creator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Template;
+use App\Models\Software;
+use App\Models\TemplateCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +25,11 @@ class TemplateController extends Controller
      */
     public function create()
     {
-        return view('creator.template.create');
+        $softwares  = Software::all();
+        $categories = TemplateCategory::all();
+
+        return view('creator.template.create', compact('softwares', 'categories'));
+
     }
 
     /**
@@ -37,6 +43,9 @@ class TemplateController extends Controller
             'price'       => 'required|integer|min:0',
             'file'        => 'required|file',
             'preview'     => 'required|image|max:2048',
+            'software_id' => 'required|exists:software,id',
+            'category_id' => 'required|exists:template_categories,id',
+            'type'        => 'required|in:video,photo',
         ]);
 
         $file = $request->file('file');
@@ -62,8 +71,11 @@ class TemplateController extends Controller
 
         Template::create([
             'user_id'     => Auth::id(),
+            'software_id' => $request->software_id,
+            'category_id' => $request->category_id,
             'title'       => $request->title,
             'description' => $request->description,
+            'type'        => $request->type,
             'price'       => $request->price,
             'file'        => $filePath,
             'preview'     => $previewPath,
@@ -81,7 +93,11 @@ class TemplateController extends Controller
         abort_if($template->user_id !== Auth::id(), 403);
 
 
-        return view('creator.template.edit', compact('template'));
+        $softwares  = Software::all();
+        $categories = TemplateCategory::all();
+
+        return view('creator.template.edit', compact('template', 'softwares', 'categories'));
+
     }
 
     /**
@@ -98,6 +114,9 @@ class TemplateController extends Controller
             'price'       => 'required|integer|min:0',
             'file'        => 'nullable|file',
             'preview'     => 'nullable|image|max:2048',
+            'software_id' => 'required|exists:software,id',
+            'category_id' => 'required|exists:template_categories,id',
+            'type'        => 'required|in:video,photo',
         ]);
 
         if ($request->hasFile('file')) {
@@ -131,6 +150,9 @@ class TemplateController extends Controller
             'title'       => $request->title,
             'description' => $request->description,
             'price'       => $request->price,
+            'software_id' => $request->software_id,
+            'category_id' => $request->category_id,
+            'type'        => $request->type,
         ]);
 
         return redirect()->route('creator.template.index')

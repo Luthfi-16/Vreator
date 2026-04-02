@@ -8,6 +8,17 @@
 @endphp
 <div class="main-content">
     <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        @if (session('info'))
+            <div class="alert alert-info">{{ session('info') }}</div>
+        @endif
         
         <div class="row g-4">
             
@@ -53,10 +64,20 @@
                             Download Template
                         </a>
 
+                    @elseif($pendingTransaction)
+
+                        <button id="pay-button"
+                            class="btn-gradient w-100 mb-2"
+                            data-checkout-url="{{ route('user.transactions.resume', $pendingTransaction) }}"
+                            style="padding: 18px; font-size: 1.1rem;">
+                            Lanjutkan Pembayaran
+                        </button>
+
                     @else
 
                         <button id="pay-button"
                             class="btn-gradient w-100 mb-3"
+                            data-checkout-url="{{ route('user.checkout.template', $template) }}"
                             style="padding: 18px; font-size: 1.1rem;">
                             Beli Sekarang
                         </button>
@@ -86,6 +107,29 @@
                     <p style="color: #6c757d; font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">
                         {{ $template->description}}
                     </p>
+                    ====================================
+                    <!-- Meta Info -->
+                    <div style="margin-bottom: 20px; font-size: 0.95rem; color: #6c757d;">
+
+                        <!-- Type -->
+                        <div>
+                            <strong>Tipe Template:</strong> 
+                            {{ ucfirst($template->type) }}
+                        </div>
+
+                        <!-- Software -->
+                        <div>
+                            <strong>Software yang digunakan:</strong> 
+                            {{ $template->software->name ?? '-' }}
+                        </div>
+
+                        <!-- Category -->
+                        <div>
+                            <strong>Kategori:</strong> 
+                            {{ $template->category->name ?? '-' }}
+                        </div>
+
+                    </div>
 
                     <!-- Cara Pembelian -->
                     <div style="background: linear-gradient(135deg, rgba(217, 111, 50, 0.1), rgba(248, 178, 89, 0.1)); padding: 25px; border-radius: 16px; margin-bottom: 25px;">
@@ -240,13 +284,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         e.preventDefault();
 
-        fetch("{{ route('user.checkout.template', $template) }}", {
+        fetch(payBtn.dataset.checkoutUrl, {
             method: "POST",
             headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Accept": "application/json"
             }
         })
-        .then(res => res.json())
+        .then(async res => {
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || "Gagal memulai pembayaran");
+            }
+
+            return data;
+        })
         .then(data => {
 
             if (!data.snap_token) {
@@ -261,13 +314,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 onPending: function(result){
                     window.location.href = "/user/payment/success?order_id=" + result.order_id;
                 },
+                onClose: function() {
+                    alert("Pembayaran belum selesai. Kamu bisa lanjutkan lagi dari halaman ini atau riwayat transaksi selama timer Midtrans masih aktif.");
+                    window.location.reload();
+                },
                 onError: function(result){
                     alert("Pembayaran gagal");
                 }
             });
 
         })
-        .catch(err => console.log(err));
+        .catch(err => alert(err.message || "Terjadi kesalahan saat memulai pembayaran"));
 
     });
 

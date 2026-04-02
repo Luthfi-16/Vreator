@@ -13,6 +13,8 @@ class Template extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'software_id',
+        'category_id',
         'slug',
         'description',
         'status',
@@ -68,6 +70,16 @@ class Template extends Model
             'template_id',
             'user_id'
         );
+    }
+
+    public function software()
+    {
+        return $this->belongsTo(Software::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(TemplateCategory::class);
     }
 
     public function ratings()

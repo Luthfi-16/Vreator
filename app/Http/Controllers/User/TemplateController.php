@@ -36,17 +36,25 @@ class TemplateController extends Controller
             ->get();
 
         $hasDownloaded = false;
+        $pendingTransaction = null;
 
         if (Auth::check()) {
             $hasDownloaded = TemplateDownload::where('user_id', Auth::id())
                 ->where('template_id', $template->id)
                 ->exists();
+
+            $pendingTransaction = Transaction::where('user_id', Auth::id())
+                ->where('template_id', $template->id)
+                ->where('status', 'pending')
+                ->latest()
+                ->first();
         }
 
         return view('user.template-detail', compact(
             'template',
             'relatedTemplates',
-            'hasDownloaded'
+            'hasDownloaded',
+            'pendingTransaction'
         ));
     }
 

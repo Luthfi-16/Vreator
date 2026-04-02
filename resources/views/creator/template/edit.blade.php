@@ -24,7 +24,6 @@
                                    name="title"
                                    class="form-control @error('title') is-invalid @enderror"
                                    value="{{ old('title', $template->title) }}"
-                                   placeholder="Contoh: Preset Cinematic Orange"
                                    required>
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -37,9 +36,60 @@
                             <textarea name="description"
                                       rows="4"
                                       class="form-control @error('description') is-invalid @enderror"
-                                      placeholder="Jelaskan detail template..."
                                       required>{{ old('description', $template->description) }}</textarea>
                             @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Type --}}
+                        <div class="mb-3">
+                            <label class="form-label">Type</label>
+                            <select name="type"
+                                    class="form-control @error('type') is-invalid @enderror"
+                                    required>
+                                <option value="">-- Pilih Type --</option>
+                                <option value="video" {{ old('type', $template->type) == 'video' ? 'selected' : '' }}>Video</option>
+                                <option value="photo" {{ old('type', $template->type) == 'photo' ? 'selected' : '' }}>Photo</option>
+                            </select>
+                            @error('type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Category --}}
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <select name="category_id"
+                                    class="form-control @error('category_id') is-invalid @enderror"
+                                    required>
+                                <option value="">-- Pilih Category --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ old('category_id', $template->category_id) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Software --}}
+                        <div class="mb-3">
+                            <label class="form-label">Software</label>
+                            <select name="software_id"
+                                    class="form-control @error('software_id') is-invalid @enderror">
+                                <option value="">-- Pilih Software --</option>
+                                @foreach ($softwares as $software)
+                                    <option value="{{ $software->id }}"
+                                        {{ old('software_id', $template->software_id) == $software->id ? 'selected' : '' }}>
+                                        {{ $software->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('software_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -51,7 +101,6 @@
                                    name="price"
                                    class="form-control @error('price') is-invalid @enderror"
                                    value="{{ old('price', $template->price) }}"
-                                   placeholder="0 untuk Free"
                                    required>
                             @error('price')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -76,21 +125,18 @@
                         <div class="mb-4">
                             <label class="form-label">Preview Image (optional)</label>
 
-                            {{-- Preview Lama --}}
                             @if ($template->preview)
                                 <div class="mb-2">
                                     <p class="text-muted small mb-1">Preview saat ini:</p>
                                     <img src="{{ asset('storage/' . $template->preview) }}"
-                                        alt="Preview Template"
-                                        class="img-thumbnail"
-                                        style="max-width: 200px;">
+                                         class="img-thumbnail"
+                                         style="max-width: 200px;">
                                 </div>
                             @endif
 
-                            {{-- Input --}}
                             <input type="file"
-                                name="preview"
-                                class="form-control @error('preview') is-invalid @enderror">
+                                   name="preview"
+                                   class="form-control @error('preview') is-invalid @enderror">
 
                             <small class="text-muted">
                                 Kosongkan jika tidak ingin mengganti preview
@@ -101,7 +147,6 @@
                             @enderror
                         </div>
 
-
                         {{-- Button --}}
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('creator.template.index') }}" class="btn btn-secondary me-2">
@@ -111,6 +156,7 @@
                                 Update Template
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>
