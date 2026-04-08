@@ -38,7 +38,9 @@ class DashboardController extends Controller
             ->avg('average_rating');
 
         // List template creator
-        $templates = Template::where('user_id', $userId)
+        $templates = Template::where('user_id', $userId)->withCount(['transactions as soldCount' => function ($query) {
+            $query->where('status', 'paid');
+        }])
             ->latest()
             ->take(5)
             ->get();

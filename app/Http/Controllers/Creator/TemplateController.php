@@ -8,6 +8,7 @@ use App\Models\TemplateCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class TemplateController extends Controller
 {
@@ -43,6 +44,7 @@ class TemplateController extends Controller
             'price'       => 'required|integer|min:0',
             'file'        => 'required|file',
             'preview'     => 'required|image|max:2048',
+            'preview_video' => 'nullable|required_if:type,video|mimetypes:video/mp4,video/webm,video/quicktime|max:20480',
             'software_id' => 'required|exists:software,id',
             'category_id' => 'required|exists:template_categories,id',
             'type'        => 'required|in:video,photo',
@@ -68,6 +70,9 @@ class TemplateController extends Controller
         $filePath = $file->storeAs($folder, $finalName, 'public');
 
         $previewPath = $request->file('preview')->store('templates/previews', 'public');
+        $previewVideoPath = $request->hasFile('preview_video')
+            ? $request->file('preview_video')->store('templates/previews/videos', 'public')
+            : null;
 
         Template::create([
             'user_id'     => Auth::id(),
@@ -79,6 +84,7 @@ class TemplateController extends Controller
             'price'       => $request->price,
             'file'        => $filePath,
             'preview'     => $previewPath,
+            'preview_video' => $previewVideoPath,
         ]);
 
         return redirect()->route('creator.template.index')
@@ -114,10 +120,17 @@ class TemplateController extends Controller
             'price'       => 'required|integer|min:0',
             'file'        => 'nullable|file',
             'preview'     => 'nullable|image|max:2048',
+            'preview_video' => 'nullable|mimetypes:video/mp4,video/webm,video/quicktime|max:20480',
             'software_id' => 'required|exists:software,id',
             'category_id' => 'required|exists:template_categories,id',
             'type'        => 'required|in:video,photo',
         ]);
+
+        if ($request->type === 'video' && ! $template->preview_video && ! $request->hasFile('preview_video')) {
+            throw ValidationException::withMessages([
+                'preview_video' => 'Preview video wajib diisi untuk template type video.',
+            ]);
+        }
 
         if ($request->hasFile('file')) {
             Storage::disk('public')->delete($template->file);
@@ -146,6 +159,16 @@ class TemplateController extends Controller
             $template->preview = $request->file('preview')->store('templates/previews', 'public');
         }
 
+        if ($request->hasFile('preview_video')) {
+            Storage::disk('public')->delete($template->preview_video);
+            $template->preview_video = $request->file('preview_video')->store('templates/previews/videos', 'public');
+        }
+
+        if ($request->type !== 'video' && $template->preview_video) {
+            Storage::disk('public')->delete($template->preview_video);
+            $template->preview_video = null;
+        }
+
         $template->update([
             'title'       => $request->title,
             'description' => $request->description,
@@ -153,6 +176,8 @@ class TemplateController extends Controller
             'software_id' => $request->software_id,
             'category_id' => $request->category_id,
             'type'        => $request->type,
+            'preview'     => $template->preview,
+            'preview_video' => $template->preview_video,
         ]);
 
         return redirect()->route('creator.template.index')
@@ -170,6 +195,7 @@ class TemplateController extends Controller
         Storage::disk('public')->delete([
             $template->file,
             $template->preview,
+            $template->preview_video,
         ]);
 
         $template->delete();

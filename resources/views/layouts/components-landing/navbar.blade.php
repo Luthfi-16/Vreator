@@ -17,7 +17,7 @@
                         <a class="nav-link" href="#fitur">Fitur</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#editor">Cari Editor</a>
+                        <a class="nav-link" href="#editor">Template</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#harga">Harga</a>

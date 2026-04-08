@@ -19,11 +19,32 @@ use App\Http\Controllers\User\HomeController as UserHomeCotroller;
 use App\Http\Controllers\User\TemplateController as UserTemplateController;
 use App\Http\Controllers\User\TransactionController as UserTransactionController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
+use App\Http\Controllers\User\ProfileCreatorController as UserProfileCreatorController;
+use App\Models\Template;
+use App\Models\TemplateDownload;
+use App\Models\User;
+use App\Models\Service;
+
 
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('landing');
+    $featuredTemplates = Template::with('user')
+        ->where('status', 'active')
+        ->latest()
+        ->take(4)
+        ->get();
+
+    $creatorCount = User::where('role', 'creator')->count();
+    $templateCount = Template::where('status', 'active')->count();
+    $serviceCount = Service::where('status', 'active')->count();
+
+    return view('landing', compact(
+        'featuredTemplates',
+        'creatorCount',
+        'templateCount',
+        'serviceCount'
+    ));
 });
 
 Auth::routes();
@@ -64,5 +85,5 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
     ->name('payment.success');
     Route::get('/profile', [UserProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-
+    Route::get('/creator/{creator:slug}', [UserProfileCreatorController::class, 'index'])->name('creator-profile');
 });

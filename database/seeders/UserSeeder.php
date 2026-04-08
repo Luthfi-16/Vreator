@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email'    => 'adminVreator@gmail.com',
             'password' => Hash::make('admin1234'),
             'role' => 'admin',
-            'whatsapp' => '0895410360197'
+            'whatsapp' => '089564738253'
         ]);
     }
 }

@@ -18,7 +18,7 @@
                                 <i class="bi bi-camera-video-fill"></i>
                             </div>
                             <h5 class="fw-bold mb-2">Saya Editor</h5>
-                            <p class="text-muted small mb-0">Jual jasa editing video/photo</p>
+                            <p class="text-muted small mb-0">Kelola template, profil, dan karya digital Anda</p>
                         </div>
 
                         <div class="role-option" onclick="goToRegister('user')">
@@ -26,7 +26,7 @@
                                 <i class="bi bi-bag-fill"></i>
                             </div>
                             <h5 class="fw-bold mb-2">Saya Pembeli</h5>
-                            <p class="text-muted small mb-0">Cari Template dan Jasa</p>
+                            <p class="text-muted small mb-0">Cari template, lihat creator, dan lanjutkan checkout</p>
                         </div>
 
                         <div>
@@ -92,11 +92,11 @@
             <div class="text-center">
                 <span class="badge-custom">Platform #1 untuk Content Creator</span>
                 <h1 class="display-3 fw-bold mt-4 mb-3">
-                    Wujudkan Konten<br>
-                    <span class="gradient-text">Impianmu di Sini</span>
+                    Temukan Template<br>
+                    <span class="gradient-text">Siap Pakai untuk Kontenmu</span>
                 </h1>
                 <p class="lead text-muted mb-5 mx-auto" style="max-width: 700px;">
-                    Temukan editor video profesional atau jual kemampuan editingmu. Semua dalam satu platform.
+                    Jelajahi template digital dari para creator, kelola transaksi dengan aman, dan temukan profil creator di satu platform.
                 </p>
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
                     @auth
@@ -119,16 +119,16 @@
                 <!-- Stats -->
                 <div class="row mt-5 pt-5">
                     <div class="col-md-4 stats-item mb-4 mb-md-0">
-                        <div class="stats-number">5000+</div>
-                        <div class="stats-label">Editor Aktif</div>
+                        <div class="stats-number">{{ number_format($creatorCount) }}+</div>
+                        <div class="stats-label">Creator Terdaftar</div>
                     </div>
                     <div class="col-md-4 stats-item mb-4 mb-md-0">
-                        <div class="stats-number">25k+</div>
-                        <div class="stats-label">Proyek Selesai</div>
+                        <div class="stats-number">{{ number_format($templateCount) }}+</div>
+                        <div class="stats-label">Template Aktif</div>
                     </div>
                     <div class="col-md-4 stats-item">
-                        <div class="stats-number">4.9/5</div>
-                        <div class="stats-label">Rating Rata-rata</div>
+                        <div class="stats-number">{{ number_format($serviceCount) }}+</div>
+                        <div class="stats-label">Jasa Aktif</div>
                     </div>
                 </div>
             </div>
@@ -140,7 +140,7 @@
         <div class="container py-5">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold mb-3">Pilih Peran yang Sesuai untuk Anda</h2>
-                <p class="lead text-muted">Vreator hadir untuk dua jenis pengguna dengan kebutuhan berbeda</p>
+                <p class="lead text-muted">Vreator mendukung creator yang ingin mengunggah karya dan user yang ingin membeli template</p>
             </div>
 
             <div class="row g-4 align-items-stretch">
@@ -151,13 +151,13 @@
                             <i class="bi bi-camera-video-fill"></i>
                         </div>
                         <h3 class="fw-bold mb-3">Untuk Creator / Editor</h3>
-                        <p class="text-muted mb-4">Jadikan skill editing Anda sebagai sumber penghasilan</p>
+                        <p class="text-muted mb-4">Kelola template, profil creator, dan karya digital dari dashboard Anda</p>
                         
                         <div class="d-flex align-items-start mb-3">
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
-                                <h6 class="fw-bold mb-1">Jual Jasa Editing Video</h6>
-                                <p class="text-muted small mb-0">Tawarkan layanan editing untuk YouTube, TikTok, Instagram Reels, dan lainnya</p>
+                                <h6 class="fw-bold mb-1">Kelola layanan dari dashboard</h6>
+                                <p class="text-muted small mb-0">Area creator sudah menyiapkan pengelolaan jasa, template, dan profil dalam satu tempat</p>
                             </div>
                         </div>
                         
@@ -165,7 +165,7 @@
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
                                 <h6 class="fw-bold mb-1">Upload Template & Preset</h6>
-                                <p class="text-muted small mb-0">Jual template video, preset warna, dan aset digital lainnya</p>
+                                <p class="text-muted small mb-0">Unggah template digital dan tampilkan preview untuk calon pembeli</p>
                             </div>
                         </div>
                         
@@ -173,15 +173,15 @@
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
                                 <h6 class="fw-bold mb-1">Kelola Portofolio</h6>
-                                <p class="text-muted small mb-0">Tampilkan karya terbaik Anda dan bangun reputasi profesional</p>
+                                <p class="text-muted small mb-0">Perbarui profil, bio, dan identitas creator agar lebih mudah dikenali</p>
                             </div>
                         </div>
                         
                         <div class="d-flex align-items-start mb-3">
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
-                                <h6 class="fw-bold mb-1">Terima Pembayaran Aman</h6>
-                                <p class="text-muted small mb-0">Sistem escrow melindungi setiap transaksi Anda</p>
+                                <h6 class="fw-bold mb-1">Transaksi Template Lebih Rapi</h6>
+                                <p class="text-muted small mb-0">Template berbayar diproses lewat checkout dan riwayat transaksi yang jelas</p>
                             </div>
                         </div>
                         
@@ -189,14 +189,14 @@
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
                                 <h6 class="fw-bold mb-1">Tampilkan Karya Terbaik Anda</h6>
-                                <p class="text-muted small mb-0">Perlihatkan hasil editing dan template untuk menarik lebih banyak klien</p>
+                                <p class="text-muted small mb-0">Preview template membantu user memahami kualitas karya sebelum membeli</p>
                             </div>
                         </div>
                         @auth
                             
                         @else
                         <button class="btn btn-gradient rounded-pill px-4 mt-4" onclick="goToRegister('creator')">
-                            Mulai Jual Jasa
+                            Mulai Jadi Creator
                         </button>
                         @endauth
                     </div>
@@ -209,13 +209,13 @@
                             <i class="bi bi-bag-fill"></i>
                         </div>
                         <h3 class="fw-bold mb-3">Untuk Buyer / Content Creator</h3>
-                        <p class="text-muted mb-4">Temukan editor profesional untuk konten Anda</p>
+                        <p class="text-muted mb-4">Cari template yang sesuai, cek profil creator, lalu download setelah checkout</p>
                         
                         <div class="d-flex align-items-start mb-3">
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
-                                <h6 class="fw-bold mb-1">Cari Editor Profesional</h6>
-                                <p class="text-muted small mb-0">Pilih dari ribuan editor terverifikasi dengan berbagai spesialisasi</p>
+                                <h6 class="fw-bold mb-1">Temukan Creator dari Karyanya</h6>
+                                <p class="text-muted small mb-0">User bisa mengenal creator lewat template yang mereka jual dan profil yang mereka tampilkan</p>
                             </div>
                         </div>
                         
@@ -223,23 +223,23 @@
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
                                 <h6 class="fw-bold mb-1">Beli Template & Preset</h6>
-                                <p class="text-muted small mb-0">Akses ribuan template siap pakai untuk mempercepat produksi konten</p>
+                                <p class="text-muted small mb-0">Pilih template gratis maupun berbayar untuk kebutuhan konten Anda</p>
                             </div>
                         </div>
                         
                         <div class="d-flex align-items-start mb-3">
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
-                                <h6 class="fw-bold mb-1">Pesan Jasa dengan Mudah</h6>
-                                <p class="text-muted small mb-0">Sistem pemesanan yang simpel dengan harga transparan</p>
+                                <h6 class="fw-bold mb-1">Jelajahi dengan Filter</h6>
+                                <p class="text-muted small mb-0">Gunakan filter, kategori, dan sorting untuk menemukan template lebih cepat</p>
                             </div>
                         </div>
                         
                         <div class="d-flex align-items-start mb-3">
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
-                                <h6 class="fw-bold mb-1">Revisi Gratis</h6>
-                                <p class="text-muted small mb-0">Dapatkan revisi hingga hasil sesuai ekspektasi Anda</p>
+                                <h6 class="fw-bold mb-1">Checkout dan Resume Pembayaran</h6>
+                                <p class="text-muted small mb-0">Pantau pembayaran pending dan lanjutkan checkout dari riwayat transaksi</p>
                             </div>
                         </div>
                         
@@ -247,13 +247,13 @@
                             <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
                             <div>
                                 <h6 class="fw-bold mb-1">Lihat Rating & Portfolio</h6>
-                                <p class="text-muted small mb-0">Pilih editor berdasarkan review dan karya sebelumnya</p>
+                                <p class="text-muted small mb-0">Lihat profil creator dan beri rating setelah template berhasil diunduh</p>
                             </div>
                         </div>
                         @auth
                         @else
                         <button class="btn btn-outline-secondary rounded-pill px-4 mt-4" onclick="goToRegister('user')">
-                            Cari Editor Sekarang
+                            Cari Template Sekarang
                         </button>
                         @endauth
                     </div>
@@ -267,7 +267,7 @@
         <div class="container py-5">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold mb-3">Fitur Platform</h2>
-                <p class="lead text-muted">Teknologi yang mendukung kolaborasi Creator dan Buyer</p>
+                <p class="lead text-muted">Fitur yang sudah tersedia untuk creator, buyer, dan pengelolaan template</p>
             </div>
 
             <div class="row g-4">
@@ -276,8 +276,8 @@
                         <div class="feature-icon">
                             <i class="bi bi-shield-check"></i>
                         </div>
-                        <h4 class="fw-bold mb-3">Sistem Pemesanan Aman</h4>
-                        <p class="text-muted mb-0">Transaksi terpercaya dengan sistem escrow dan rating untuk melindungi buyer dan creator</p>
+                        <h4 class="fw-bold mb-3">Checkout Template</h4>
+                        <p class="text-muted mb-0">Template gratis bisa langsung diunduh, sementara template berbayar diproses lewat checkout dan riwayat transaksi</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -285,8 +285,8 @@
                         <div class="feature-icon">
                             <i class="bi bi-lightning-charge-fill"></i>
                         </div>
-                        <h4 class="fw-bold mb-3">Proses Cepat</h4>
-                        <p class="text-muted mb-0">Mayoritas proyek selesai dalam 24-48 jam dengan komunikasi real-time</p>
+                        <h4 class="fw-bold mb-3">Filter & Jelajah Cepat</h4>
+                        <p class="text-muted mb-0">User dapat mencari template berdasarkan kata kunci, kategori, harga, dan urutan yang paling relevan</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -294,8 +294,8 @@
                         <div class="feature-icon">
                             <i class="bi bi-wallet2"></i>
                         </div>
-                        <h4 class="fw-bold mb-3">Harga Transparan</h4>
-                        <p class="text-muted mb-0">Tidak ada biaya tersembunyi, harga jelas dari awal mulai dari 50rb</p>
+                        <h4 class="fw-bold mb-3">Download & Rating</h4>
+                        <p class="text-muted mb-0">Setelah membeli atau mengunduh template, user bisa memberi rating untuk membantu creator membangun reputasi</p>
                     </div>
                 </div>
             </div>
@@ -309,38 +309,38 @@
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <h2 class="display-5 fw-bold mb-4">Kenapa Pilih Vreator?</h2>
                     <p class="lead mb-4" style="opacity: 0.9;">
-                        Kami hadir untuk membuat proses editing video jadi lebih mudah, cepat, dan terpercaya.
+                        Platform ini dirancang untuk memudahkan creator menjual template dan user menemukan aset digital yang siap dipakai.
                     </p>
                     <div class="check-item">
                         <div class="check-icon">
                             <i class="bi bi-check-lg"></i>
                         </div>
-                        <span class="fw-semibold">Proses cepat dalam 24 jam</span>
+                        <span class="fw-semibold">Template gratis dan berbayar dalam satu katalog</span>
                     </div>
                     <div class="check-item">
                         <div class="check-icon">
                             <i class="bi bi-check-lg"></i>
                         </div>
-                        <span class="fw-semibold">Harga transparan mulai 50rb</span>
+                        <span class="fw-semibold">Profil creator bisa dilihat langsung dari detail template</span>
                     </div>
                     <div class="check-item">
                         <div class="check-icon">
                             <i class="bi bi-check-lg"></i>
                         </div>
-                        <span class="fw-semibold">Revisi gratis hingga puas</span>
+                        <span class="fw-semibold">Filter kategori, harga, dan urutan pencarian yang praktis</span>
                     </div>
                     <div class="check-item">
                         <div class="check-icon">
                             <i class="bi bi-check-lg"></i>
                         </div>
-                        <span class="fw-semibold">Editor terverifikasi</span>
+                        <span class="fw-semibold">Riwayat transaksi dan download tersimpan rapi</span>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="video-placeholder">
                         <i class="bi bi-play-circle-fill"></i>
                     </div>
-                    <p class="text-center text-white mt-4 fw-semibold">Lihat bagaimana Vreator bekerja</p>
+                    <p class="text-center text-white mt-4 fw-semibold">Mulai dari preview template sampai download akhir</p>
                 </div>
             </div>
         </div>
@@ -350,90 +350,45 @@
     <section id="editor" class="py-5" style="background: #FAF6F0;">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3">Editor Terpopuler</h2>
-                <p class="lead text-muted">Dipilih oleh ribuan content creator</p>
+                <h2 class="display-5 fw-bold mb-3">Template Terbaru</h2>
+                <p class="lead text-muted">Konten ini menampilkan template yang aktif di project Anda</p>
             </div>
 
             <div class="row g-4">
+                @forelse($featuredTemplates as $template)
                 <div class="col-lg-3 col-md-6">
                     <div class="card editor-card border-0">
                         <div class="editor-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop" class="card-img-top editor-img" alt="Sarah K.">
+                            <img src="{{ asset('storage/' . $template->preview) }}" class="card-img-top editor-img" alt="{{ $template->title }}">
                         </div>
                         <div class="card-body p-4">
-                            <h5 class="card-title fw-bold mb-1">Sarah K.</h5>
-                            <p class="card-text text-muted small mb-3">YouTube Editor</p>
+                            <h5 class="card-title fw-bold mb-1">{{ $template->title }}</h5>
+                            <p class="card-text text-muted small mb-3"><b>Creator :</b> {{ $template->user->name ?? 'Creator Vreator' }}</p>
                             <div class="d-flex justify-content-between align-items-center small">
                                 <div>
                                     <i class="bi bi-star-fill text-warning"></i>
-                                    <span class="fw-bold">4.9</span>
+                                    <span class="fw-bold">{{ number_format($template->average_rating ?? 0, 1) }}</span>
                                 </div>
-                                <span class="text-muted">127 proyek</span>
+                                <span class="text-muted">{{ $template->price == 0 ? 'Gratis' : 'IDR' . number_format($template->price, 0, ',', '.') }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="card editor-card border-0">
-                        <div class="editor-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop" class="card-img-top editor-img" alt="Fikri M.">
-                        </div>
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-bold mb-1">Fikri M.</h5>
-                            <p class="card-text text-muted small mb-3">TikTok Specialist</p>
-                            <div class="d-flex justify-content-between align-items-center small">
-                                <div>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <span class="fw-bold">5.0</span>
-                                </div>
-                                <span class="text-muted">89 proyek</span>
-                            </div>
-                        </div>
+                @empty
+                <div class="col-12">
+                    <div class="text-center text-muted">
+                        Template aktif akan tampil di sini setelah creator mengunggah karya.
                     </div>
                 </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="card editor-card border-0">
-                        <div class="editor-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=300&fit=crop" class="card-img-top editor-img" alt="Dini R.">
-                        </div>
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-bold mb-1">Dini R.</h5>
-                            <p class="card-text text-muted small mb-3">Reels Expert</p>
-                            <div class="d-flex justify-content-between align-items-center small">
-                                <div>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <span class="fw-bold">4.8</span>
-                                </div>
-                                <span class="text-muted">156 proyek</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="card editor-card border-0">
-                        <div class="editor-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=300&fit=crop" class="card-img-top editor-img" alt="Reza A.">
-                        </div>
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-bold mb-1">Reza A.</h5>
-                            <p class="card-text text-muted small mb-3">Vlog Editor</p>
-                            <div class="d-flex justify-content-between align-items-center small">
-                                <div>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <span class="fw-bold">4.9</span>
-                                </div>
-                                <span class="text-muted">98 proyek</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
 
-            <div class="text-center mt-5">
-                <button class="btn btn-outline-secondary btn-lg rounded-pill px-5">Lihat Semua Editor</button>
+            <div id="harga" class="text-center mt-5">
+                @guest
+                    <button class="btn btn-outline-secondary btn-lg rounded-pill px-5" onclick="goToRegister('user')">Masuk sebagai buyer untuk Lihat Template</button>
+                @else
+                    <a href="{{ route('user.listtemplate') }}" class="btn btn-outline-secondary btn-lg rounded-pill px-5">Lihat Semua Template</a>
+                @endguest
             </div>
         </div>
     </section>
@@ -444,13 +399,13 @@
             <div class="text-center">
                 <h2 class="display-4 fw-bold mb-4">Siap Tingkatkan Kontenmu?</h2>
                 <p class="lead mb-5" style="opacity: 0.8;">
-                    Gabung bersama ribuan creator yang sudah mempercayai Vreator
+                    Masuk sekarang untuk mulai jual template atau jelajahi karya dari creator lain
                 </p>
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
                     <button class="btn btn-gradient btn-lg rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#loginModal">Daftar Gratis</button>
-                    <button class="btn btn-light btn-lg rounded-pill px-5">Pelajari Lebih Lanjut</button>
+                    <a href="#fitur" class="btn btn-light btn-lg rounded-pill px-5">Pelajari Fitur</a>
                 </div>
-                <p class="mt-4 small" style="opacity: 0.6;">Gratis untuk memulai • Tidak perlu kartu kredit</p>
+                <p class="mt-4 small" style="opacity: 0.6;">Gratis untuk memulai dan creator bisa langsung mengelola template dari dashboard</p>
             </div>
         </div>
     </section>

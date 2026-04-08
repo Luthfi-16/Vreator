@@ -105,9 +105,10 @@
                                 <thead>
                                     <tr>
                                         <th>Preview</th>
-                                        <th>Title</th>
-                                        <th>Price</th>
+                                        <th>Judul</th>
+                                        <th>Harga</th>
                                         <th>Downloads</th>
+                                        <th>Terjual</th>
                                         <th>Rating</th>
                                     </tr>
                                 </thead>
@@ -123,6 +124,7 @@
                                             {{ $template->price == 0 ? 'Gratis' : 'Rp '.number_format($template->price) }}
                                         </td>
                                         <td>{{ $template->download_count ?? 0 }}</td>
+                                        <td>{{ $template->soldCount }}</td>
                                         <td>
                                             {{ number_format($template->average_rating ?? 0, 1) }} ⭐
                                         </td>
@@ -142,16 +144,6 @@
             </div>
         </div>
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart-profile-visit"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-12 col-lg-3">

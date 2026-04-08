@@ -46,6 +46,7 @@
                         <div class="mb-3">
                             <label class="form-label">Type</label>
                             <select name="type"
+                                    id="templateType"
                                     class="form-control @error('type') is-invalid @enderror"
                                     required>
                                 <option value="">-- Pilih Type --</option>
@@ -136,6 +137,7 @@
 
                             <input type="file"
                                    name="preview"
+                                   accept="image/*"
                                    class="form-control @error('preview') is-invalid @enderror">
 
                             <small class="text-muted">
@@ -144,6 +146,33 @@
 
                             @error('preview')
                                 <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4 {{ old('type', $template->type) === 'video' ? '' : 'd-none' }}" id="previewVideoWrapper">
+                            <label class="form-label">Preview Video (optional)</label>
+
+                            @if ($template->preview_video)
+                                <div class="mb-2">
+                                    <p class="text-muted small mb-1">Preview video saat ini:</p>
+                                    <video controls style="max-width: 260px;" class="rounded border">
+                                        <source src="{{ asset('storage/' . $template->preview_video) }}">
+                                    </video>
+                                </div>
+                            @endif
+
+                            <input type="file"
+                                   name="preview_video"
+                                   id="previewVideoInput"
+                                   accept="video/mp4,video/webm,video/quicktime"
+                                   class="form-control @error('preview_video') is-invalid @enderror">
+
+                            <small class="text-muted">
+                                Kosongkan jika tidak ingin mengganti preview video.
+                            </small>
+
+                            @error('preview_video')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -164,4 +193,24 @@
         </div>
     </div>
 </div>
+<script>
+    (function () {
+        const typeSelect = document.getElementById('templateType');
+        const previewVideoWrapper = document.getElementById('previewVideoWrapper');
+        const previewVideoInput = document.getElementById('previewVideoInput');
+
+        function syncPreviewVideoField() {
+            const isVideo = typeSelect.value === 'video';
+            previewVideoWrapper.classList.toggle('d-none', !isVideo);
+            previewVideoInput.required = false;
+
+            if (!isVideo) {
+                previewVideoInput.value = '';
+            }
+        }
+
+        typeSelect.addEventListener('change', syncPreviewVideoField);
+        syncPreviewVideoField();
+    })();
+</script>
 @endsection

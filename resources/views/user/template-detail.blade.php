@@ -25,9 +25,16 @@
             <!-- Left Side - Preview Image -->
             <div class="col-lg-6">
                 <div class="welcome-section" style="padding: 0; overflow: hidden;">
-                    <img src="{{ asset ('storage/'.$template->preview)}}" 
-                         alt="Preset - Sency" 
-                         style="width: 100%; height: auto; display: block;">
+                    @if ($template->type === 'video' && $template->preview_video)
+                        <video controls playsinline style="width: 100%; height: auto; display: block;">
+                            <source src="{{ asset('storage/' . $template->preview_video) }}">
+                            Browser Anda tidak mendukung preview video.
+                        </video>
+                    @else
+                        <img src="{{ asset ('storage/'.$template->preview)}}" 
+                             alt="Preset - Sency" 
+                             style="width: 100%; height: auto; display: block;">
+                    @endif
                 </div>
             </div>
 
@@ -107,7 +114,6 @@
                     <p style="color: #6c757d; font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">
                         {{ $template->description}}
                     </p>
-                    ====================================
                     <!-- Meta Info -->
                     <div style="margin-bottom: 20px; font-size: 0.95rem; color: #6c757d;">
 
@@ -148,6 +154,7 @@
                         <h4 style="font-size: 0.9rem; color: #6c757d; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
                             Dibuat oleh
                         </h4>
+                        <a href="{{ route('user.creator-profile', $template->user ) }}" style="text-decoration: none;">
                         <div style="display: flex; align-items: center; gap: 15px;">
                             <!-- Creator Avatar -->
                                 <img src="{{ asset ('storage/'. $template->user->profile_photo) }}" alt="" style="width: 60px; height: 60px; border-radius: 50%;">
@@ -162,6 +169,7 @@
                                 </p>
                             </div>
                         </div>
+                        </a>
                     </div>
 
                 </div>

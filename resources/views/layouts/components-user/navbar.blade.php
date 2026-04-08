@@ -15,16 +15,19 @@
                     <!-- Profile Dropdown -->
                     <div class="profile-dropdown">
                         <button class="profile-btn" id="profileBtn">
-                            JD
+                            @if(Auth::user()->profile_photo)
+                                <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}"
+                                    alt="Profile"
+                                    style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+                            @else
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                {{ strtoupper(substr(explode(' ', Auth::user()->name)[1] ?? '', 0, 1)) }}
+                            @endif
                         </button>
                         <div class="profile-menu" id="profileMenu">
                             <a href="{{ route('user.profile.index') }}" class="profile-menu-item">
                                 <i class="bi bi-person"></i>
                                 <span>Profil Saya</span>
-                            </a>
-                            <a href="#" class="profile-menu-item">
-                                <i class="bi bi-gear"></i>
-                                <span>Pengaturan</span>
                             </a>
                             <div class="profile-menu-divider"></div>
                             <a href="{{ route('logout') }}" class="profile-menu-item" 

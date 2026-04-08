@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('creator.service.update', $service->id) }}" method="POST">
+                    <form action="{{ route('creator.service.update', $service) }}" method="POST">
                         @csrf
                         @method('PUT')
 

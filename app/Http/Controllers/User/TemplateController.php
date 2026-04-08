@@ -3,6 +3,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Template;
+use App\Models\TemplateCategory;
 use App\Models\TemplateDownload;
 use App\Models\TemplateRating;
 use App\Models\Transaction;
@@ -17,14 +18,48 @@ class TemplateController extends Controller
         $this->middleware('auth')->only(['download', 'rate']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $templates = Template::with('user')
-            ->where('status', 'active')
-            ->latest()
-            ->paginate(12);
+        $query = Template::with(['user', 'category'])
+            ->where('status', 'active');
 
-        return view('user.listtemplate', compact('templates'));
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+
+            $query->where(function ($builder) use ($search) {
+                $builder->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        if ($request->filled('category')) {
+            $query->whereHas('category', function ($categoryQuery) use ($request) {
+                $categoryQuery->where('slug', $request->category);
+            });
+        }
+
+        if ($request->filled('price')) {
+            match ($request->price) {
+                'free' => $query->where('price', 0),
+                'paid' => $query->where('price', '>', 0),
+                default => null,
+            };
+        }
+
+        match ($request->get('sort', 'latest')) {
+            'price_asc' => $query->orderBy('price')->orderByDesc('created_at'),
+            'price_desc' => $query->orderByDesc('price')->orderByDesc('created_at'),
+            'name_asc' => $query->orderBy('title'),
+            default => $query->latest(),
+        };
+
+        $templates = $query->paginate(8)->withQueryString();
+        $categories = TemplateCategory::orderBy('name')->get();
+
+        return view('user.listtemplate', compact('templates', 'categories'));
     }
 
     public function show(Template $template)

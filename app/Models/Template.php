@@ -21,6 +21,7 @@ class Template extends Model
         'price',
         'file',
         'preview',
+        'preview_video',
         'download_count',
         'average_rating',
         'rating_count',        
@@ -95,6 +96,11 @@ class Template extends Model
     public function ratingCount()
     {
         return $this->ratings()->count();
+    }
+
+    public function Transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 
 }
