@@ -186,23 +186,34 @@
                     
 
                 <!-- Related Template 1 -->
-                <div class="col-lg-3 col-md-4 col-6">
-                    <a href="{{ route('user.template.show', $relatedTemplate) }}" class="editor-card">
-                        <div class="editor-img-wrapper" style="height: 280px;">
+                <div class="col-12 col-sm-6 col-lg-3 template-card-grid-item">
+                    <a href="{{ route('user.template.show', $relatedTemplate) }}" class="editor-card template-card">
+                        <div class="editor-img-wrapper template-card-media">
                             <img src="{{ asset ('storage/'.$relatedTemplate->preview)}}"
                                 class="editor-img"
-                                alt="Preset - Timeless">
-                            <span class="editor-badge">Popular</span>
+                                alt="{{ $relatedTemplate->title }}">
+                            {{-- <span class="editor-badge">Popular</span> --}}
                         </div>
 
-                        <div class="editor-card-body">
-                            <h3 class="editor-name" style="font-size: 1rem;">
+                        <div class="editor-card-body template-card-body">
+                            <h3 class="editor-name template-card-title">
                                 {{ $relatedTemplate->title }}
                             </h3>
 
-                            <p style="font-size: 1.2rem; font-weight: 700; color: #27ae60;">
-                                 {{ $relatedTemplate->price == 0 ? 'Gratis' : 'IDR'.number_format($relatedTemplate->price) }}
+                            <p class="template-card-creator">
+                                Creator : {{ $relatedTemplate->user->name ?? 'Creator Vreator' }}
                             </p>
+
+                            <div class="template-card-footer">
+                                <div class="template-card-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>{{ number_format($relatedTemplate->average_rating ?? 0, 1) }}</span>
+                                </div>
+
+                                <span class="template-card-price">
+                                    {{ $relatedTemplate->price == 0 ? 'Gratis' : 'IDR' . number_format($relatedTemplate->price, 0, ',', '.') }}
+                                </span>
+                            </div>
                         </div>
                     </a>
                 </div>

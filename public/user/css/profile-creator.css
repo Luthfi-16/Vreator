@@ -257,6 +257,7 @@
 
     .pc-card-link {
         position: relative;
+        width: 100%;
     }
 
     .pc-card-thumb {
@@ -292,10 +293,41 @@
     }
 
     .pc-card-price {
-        font-size: 1.2rem;
+        color: #6c757d;
+        font-size: 1rem;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .pc-card-title {
+        margin-bottom: 6px;
+    }
+
+    .pc-card-creator {
+        color: #6c757d;
+        font-size: 0.92rem;
+        margin-bottom: 14px;
+        line-height: 1.4;
+    }
+
+    .pc-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .pc-card-rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #2c3e50;
+        font-size: 0.95rem;
         font-weight: 700;
-        color: #27ae60;
-        margin: 0;
+    }
+
+    .pc-card-rating i {
+        color: #f4b400;
     }
 
     .pc-empty {
@@ -430,10 +462,28 @@
             flex-direction: column;
             align-items: flex-start;
         }
+
+        .pc-card-thumb {
+            height: 250px;
+        }
     }
 
     @media (max-width: 520px) {
         .pc-name {
             font-size: 2rem;
+        }
+
+        .pc-card-thumb {
+            height: 228px;
+        }
+
+        .pc-card-title {
+            font-size: 0.98rem;
+        }
+
+        .pc-card-creator,
+        .pc-card-rating,
+        .pc-card-price {
+            font-size: 0.92rem;
         }
     }

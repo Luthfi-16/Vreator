@@ -54,11 +54,11 @@
                 @else
 
                 @foreach($topTemplates as $template)
-                <div class="col-lg-3 col-md-4 col-6">
-                    <a href="{{ route('user.template.show', $template) }}" class="editor-card">
+                <div class="col-12 col-sm-6 col-lg-3 template-card-grid-item">
+                    <a href="{{ route('user.template.show', $template) }}" class="editor-card template-card">
                         
                         <!-- IMAGE -->
-                        <div class="editor-img-wrapper" style="height: 280px;">
+                        <div class="editor-img-wrapper template-card-media">
                             <img src="{{ asset('storage/' . $template->preview) }}" class="editor-img">
 
                             @if ($template->average_rating >= 4.8)
@@ -69,30 +69,25 @@
                         </div>
 
                         <!-- BODY -->
-                        <div class="editor-card-body">
+                        <div class="editor-card-body template-card-body">
 
-                            <h3 class="editor-name" style="font-size: 1rem; margin-bottom: 8px;">
+                            <h3 class="editor-name template-card-title">
                                 {{ $template->title }}
                             </h3>
 
-                            <p style="font-size: 1.2rem; font-weight: 700; color: #27ae60; margin: 0;">
-                                @if($template->price == 0)
-                                    Free
-                                @else
-                                    IDR{{ number_format($template->price, 0, ',', '.') }}
-                                @endif
+                            <p class="template-card-creator">
+                                Creator : {{ $template->user->name ?? 'Creator Vreator' }}
                             </p>
 
-                            <div class="editor-stats">
-                                <div style="display: flex; align-items: center; gap: 5px; color: #6c757d; font-size: 0.85rem;">
-                                    <i class="bi bi-download"></i>
-                                    <span>{{ $template->download_count }}</span>
-                                </div>
-
-                                <div class="editor-rating">
+                            <div class="template-card-footer">
+                                <div class="template-card-rating">
                                     <i class="bi bi-star-fill"></i>
                                     <span>{{ number_format($template->average_rating, 1) }}</span>
                                 </div>
+
+                                <span class="template-card-price">
+                                    {{ $template->price == 0 ? 'Gratis' : 'IDR' . number_format($template->price, 0, ',', '.') }}
+                                </span>
                             </div>
 
                         </div>

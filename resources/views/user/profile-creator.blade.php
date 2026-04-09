@@ -120,14 +120,14 @@
                     $preview = $template->preview ? asset('storage/' . $template->preview) : null;
                 @endphp
                 <div
-                    class="pc-template-item col-lg-3 col-md-4 col-6"
+                    class="pc-template-item col-12 col-sm-6 col-lg-3 template-card-grid-item"
                     data-title="{{ strtolower($template->title) }}"
                     data-category="{{ strtolower($categoryName ?? '') }}"
                     data-price="{{ (int) $template->price }}"
                     data-order="{{ $index }}"
                 >
-                    <a href="{{ route('user.template.show', $template) }}" class="editor-card pc-card-link">
-                        <div class="editor-img-wrapper pc-card-thumb">
+                    <a href="{{ route('user.template.show', $template) }}" class="editor-card template-card pc-card-link">
+                        <div class="editor-img-wrapper pc-card-thumb template-card-media">
                             @if($preview)
                                 <img src="{{ $preview }}" alt="{{ $template->title }}" loading="lazy" class="editor-img">
                             @endif
@@ -141,19 +141,24 @@
                             @endif
                         </div>
 
-                        <div class="editor-card-body">
-                            <h3 class="editor-name" style="font-size: 1rem; margin-bottom: 8px;">
+                        <div class="editor-card-body template-card-body">
+                            <h3 class="editor-name template-card-title pc-card-title">
                                 {{ $template->title }}
                             </h3>
 
-                            <p class="pc-card-price">
-                                {{ (int) $template->price === 0 ? 'Gratis' : 'IDR ' . number_format($template->price) }}
+                            <p class="pc-card-creator">
+                                Creator : {{ $creator->name }}
                             </p>
 
-                            <div class="editor-stats">
-                                <div class="text-muted" style="font-size: .85rem">
-                                    by {{ $creator->name }}
+                            <div class="pc-card-footer">
+                                <div class="pc-card-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>{{ number_format($template->average_rating ?? 0, 1) }}</span>
                                 </div>
+
+                                <span class="pc-card-price">
+                                    {{ (int) $template->price === 0 ? 'Gratis' : 'IDR' . number_format($template->price, 0, ',', '.') }}
+                                </span>
                             </div>
                         </div>
                     </a>

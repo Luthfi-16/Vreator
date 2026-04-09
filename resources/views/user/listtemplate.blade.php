@@ -115,6 +115,14 @@
             width: 100%;
         }
     }
+
+    @media (max-width: 575.98px) {
+        .lt-category-badge,
+        .lt-free-badge {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+        }
+    }
 </style>
 
         <div class="welcome-section">
@@ -161,9 +169,9 @@
         @if ($templates->count() > 0)
             <div class="row g-4 mb-5">
                 @foreach ($templates as $template)
-                <div class="col-lg-3 col-md-4 col-6">
-                    <a href="{{ route('user.template.show', $template) }}" class="editor-card lt-card-link">
-                        <div class="editor-img-wrapper" style="height: 280px;">
+                <div class="col-12 col-sm-6 col-lg-3 template-card-grid-item">
+                    <a href="{{ route('user.template.show', $template) }}" class="editor-card template-card lt-card-link">
+                        <div class="editor-img-wrapper template-card-media">
                             <img src="{{ asset('storage/'.$template->preview) }}"
                                 class="editor-img"
                                 alt="{{ $template->title }}">
@@ -177,23 +185,24 @@
                             @endif
                         </div>
 
-                        <div class="editor-card-body">
-                            <h3 class="editor-name" style="font-size: 1rem;">
+                        <div class="editor-card-body template-card-body">
+                            <h3 class="editor-name template-card-title">
                                 {{ $template->title }}
                             </h3>
 
-                            <p style="font-size: 1.2rem; font-weight: 700; color: #27ae60;">
-                                {{ $template->price == 0 ? 'Gratis' : 'IDR '.number_format($template->price) }}
+                            <p class="template-card-creator">
+                                Creator : {{ $template->user->name ?? 'Creator Vreator' }}
                             </p>
 
-                            <div class="editor-stats">
-                                <div class="text-muted" style="font-size: .85rem">
-                                    Tipe Template: {{ $template->type }}
+                            <div class="template-card-footer">
+                                <div class="template-card-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>{{ number_format($template->average_rating ?? 0, 1) }}</span>
                                 </div>
 
-                                <div class="text-muted" style="font-size: .85rem">
-                                    {{ $template->download_count }} download
-                                </div>
+                                <span class="template-card-price">
+                                    {{ $template->price == 0 ? 'Gratis' : 'IDR' . number_format($template->price, 0, ',', '.') }}
+                                </span>
                             </div>
                         </div>
                     </a>
