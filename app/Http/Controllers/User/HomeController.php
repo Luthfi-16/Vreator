@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $auth = Auth::user();
 
-        $topTemplates = Template::where('status', 'active')
+        $topTemplates = Template::query()
             ->where('average_rating', '>=', 4.5)
             ->orderBy('average_rating', 'desc')
             ->orderBy('download_count', 'desc')

@@ -28,24 +28,6 @@ class TemplateController extends Controller
     }
 
     /**
-     * Update template status (moderation).
-     */
-    public function update(Request $request, Template $template)
-    {
-        $request->validate([
-            'status' => 'required|in:active,inactive',
-        ]);
-
-        $template->update([
-            'status' => $request->status,
-        ]);
-
-        return redirect()
-            ->route('admin.template.index')
-            ->with('success', 'Status template berhasil diperbarui.');
-    }
-
-    /**
      * Remove the specified template.
      */
     public function destroy(Template $template)

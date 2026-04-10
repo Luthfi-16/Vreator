@@ -17,7 +17,7 @@ class Template extends Model
         'category_id',
         'slug',
         'description',
-        'status',
+        'type',
         'price',
         'file',
         'preview',

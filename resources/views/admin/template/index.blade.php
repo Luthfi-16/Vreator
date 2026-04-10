@@ -13,7 +13,6 @@
                         <th>Template</th>
                         <th>Creator</th>
                         <th>Price</th>
-                        <th>Status</th>
                         <th class="text-end">Action</th>
                     </tr>
                 </thead>
@@ -24,11 +23,6 @@
                         <td>{{ $template->title }}</td>
                         <td>{{ $template->user->name }}</td>
                         <td>Rp {{ number_format($template->price,0,',','.') }}</td>
-                        <td>
-                            <span class="badge {{ $template->status=='active'?'bg-success':'bg-secondary' }}">
-                                {{ ucfirst($template->status) }}
-                            </span>
-                        </td>
                         <td class="text-end">
                             <button class="btn btn-sm btn-info"
                                 data-bs-toggle="modal"
@@ -61,22 +55,6 @@
                                          class="img-fluid rounded mb-3">
 
                                     <p>{{ $template->description }}</p>
-
-                                    <form action="{{ route('admin.template.update',$template->id) }}"
-                                          method="POST">
-                                        @csrf
-                                        @method('PUT')
-
-                                        <label class="form-label">Status</label>
-                                        <select name="status" class="form-select">
-                                            <option value="active" {{ $template->status=='active'?'selected':'' }}>Active</option>
-                                            <option value="inactive" {{ $template->status=='inactive'?'selected':'' }}>Inactive</option>
-                                        </select>
-
-                                        <button class="btn btn-primary mt-3">
-                                            Update Status
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
                         </div>

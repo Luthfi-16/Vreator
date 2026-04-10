@@ -20,8 +20,7 @@ class TemplateController extends Controller
 
     public function index(Request $request)
     {
-        $query = Template::with(['user', 'category'])
-            ->where('status', 'active');
+        $query = Template::with(['user', 'category']);
 
         if ($request->filled('search')) {
             $search = trim($request->search);

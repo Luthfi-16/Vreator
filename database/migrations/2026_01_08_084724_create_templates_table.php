@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->enum('type', ['video', 'photo']);
             $table->integer('price');
             $table->string('file');

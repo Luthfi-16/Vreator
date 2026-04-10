@@ -12,7 +12,6 @@ class ProfileCreatorController extends Controller
     {
         $templates = $creator->templates()
             ->with(['user', 'category'])
-            ->where('status', 'active')
             ->latest()
             ->get();
 

@@ -30,13 +30,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $featuredTemplates = Template::with('user')
-        ->where('status', 'active')
         ->latest()
         ->take(4)
         ->get();
 
     $creatorCount = User::where('role', 'creator')->count();
-    $templateCount = Template::where('status', 'active')->count();
+    $templateCount = Template::count();
     $serviceCount = Service::where('status', 'active')->count();
 
     return view('landing', compact(
@@ -58,7 +57,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
     Route::resource('/service', AdminServiceController::class)->only(['index', 'update', 'destroy']);
-    Route::resource('/template', AdminTemplateController::class)->only(['index', 'update', 'destroy']);
+    Route::resource('/template', AdminTemplateController::class)->only(['index', 'destroy']);
     Route::resource('/software', AdminSoftwareController::class);
     Route::resource('/template-category', AdminTemplateCategoryController::class);
 });
