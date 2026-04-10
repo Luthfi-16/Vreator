@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Template;
-use Illuminate\Http\Request;
 
 class TemplateController extends Controller
 {

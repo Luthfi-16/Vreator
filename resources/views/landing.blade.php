@@ -124,7 +124,7 @@
                     </div>
                     <div class="col-md-4 stats-item mb-4 mb-md-0">
                         <div class="stats-number">{{ number_format($templateCount) }}+</div>
-                        <div class="stats-label">Template Aktif</div>
+                        <div class="stats-label">Total Template</div>
                     </div>
                     <div class="col-md-4 stats-item">
                         <div class="stats-number">{{ number_format($serviceCount) }}+</div>
@@ -377,7 +377,7 @@
                 @empty
                 <div class="col-12">
                     <div class="text-center text-muted">
-                        Template aktif akan tampil di sini setelah creator mengunggah karya.
+                        Template akan tampil di sini setelah creator mengunggah karya.
                     </div>
                 </div>
                 @endforelse

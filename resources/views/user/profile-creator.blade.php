@@ -172,7 +172,7 @@
         </div>
     @else
         <div class="pc-empty">
-            <h3>Creator ini belum punya template aktif</h3>
+            <h3>Creator ini belum punya template</h3>
             <p>Nanti kalau sudah ada karya yang dipublikasikan, daftar template akan muncul di halaman ini.</p>
         </div>
     @endif
