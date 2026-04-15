@@ -6,7 +6,6 @@ use App\Models\Template;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Transaction as MidtransTransaction;
@@ -122,11 +121,6 @@ class TransactionController extends Controller
             $status = $this->fetchMidtransStatus($orderId);
             $this->syncTransactionStatus($transaction, $status->transaction_status, $status->fraud_status ?? null);
         } catch (Throwable $e) {
-            Log::warning('Midtrans success callback verification failed.', [
-                'order_id' => $orderId,
-                'message' => $e->getMessage(),
-            ]);
-
             return redirect()
                 ->route('user.template.show', $transaction->template)
                 ->with('info', 'Pembayaran sedang diverifikasi. Silakan tunggu sebentar lalu cek kembali.');
@@ -148,11 +142,6 @@ class TransactionController extends Controller
     {
         $this->configureMidtrans();
 
-        Log::info('Midtrans notification received.', [
-            'payload' => $request->all(),
-            'raw_body' => $request->getContent(),
-        ]);
-
         $notif = new \Midtrans\Notification();
 
         $orderId           = $notif->order_id;
@@ -162,22 +151,10 @@ class TransactionController extends Controller
         $transaction = Transaction::where('order_id', $orderId)->first();
 
         if (!$transaction) {
-            Log::warning('Midtrans notification transaction not found.', [
-                'order_id' => $orderId,
-            ]);
-
             return response()->json(['message' => 'Transaction not found'], 404);
         }
 
         $this->syncTransactionStatus($transaction, $transactionStatus, $fraudStatus);
-
-        Log::info('Midtrans notification synchronized.', [
-            'transaction_id' => $transaction->id,
-            'order_id' => $orderId,
-            'transaction_status' => $transactionStatus,
-            'fraud_status' => $fraudStatus,
-            'local_status' => $transaction->fresh()->status,
-        ]);
 
         return response()->json(['message' => 'OK']);
     }
@@ -192,8 +169,6 @@ class TransactionController extends Controller
 
     private function buildSnapParams(Template $template, string $orderId): array
     {
-        $callbackUrl = route('user.payment.success', ['order_id' => $orderId]);
-
         return [
             'transaction_details' => [
                 'order_id'     => $orderId,
@@ -210,9 +185,7 @@ class TransactionController extends Controller
                 'email'      => Auth::user()->email,
             ],
             'callbacks' => [
-                'finish' => $callbackUrl,
-                'error' => $callbackUrl,
-                'unfinish' => $callbackUrl,
+                'finish' => route('user.payment.success', ['order_id' => $orderId]),
             ],
         ];
     }
@@ -227,11 +200,6 @@ class TransactionController extends Controller
             $status = $this->fetchMidtransStatus($transaction->order_id);
             $this->syncTransactionStatus($transaction, $status->transaction_status, $status->fraud_status ?? null);
         } catch (Throwable $e) {
-            Log::warning('Midtrans refresh status failed.', [
-                'order_id' => $transaction->order_id,
-                'message' => $e->getMessage(),
-            ]);
-
             // Keep local status as pending if Midtrans status cannot be fetched.
         }
     }
@@ -265,13 +233,5 @@ class TransactionController extends Controller
         };
 
         $transaction->update(['status' => $status]);
-
-        Log::info('Transaction status synchronized.', [
-            'transaction_id' => $transaction->id,
-            'order_id' => $transaction->order_id,
-            'midtrans_status' => $transactionStatus,
-            'fraud_status' => $fraudStatus,
-            'local_status' => $status,
-        ]);
     }
 }
