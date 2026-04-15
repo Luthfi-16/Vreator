@@ -73,26 +73,40 @@
     .profile-avatar-wrap {
         display: flex;
         justify-content: center;
-        margin-top: -50px;
+        margin-top: -28px;
         position: relative;
         z-index: 2;
     }
 
-    .profile-avatar-ring {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        padding: 3px;
-        background: linear-gradient(135deg, var(--vreator-orange), var(--vreator-orange-light));
-        box-shadow: 0 8px 24px rgba(232,130,26,0.35);
+    .profile-avatar-shell {
+        padding: 8px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.92);
+        box-shadow: 0 14px 28px rgba(232,130,26,0.16);
     }
 
-    .profile-avatar-ring img {
+    .profile-avatar-btn {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--vreator-orange) 0%, var(--vreator-orange-light) 100%);
+        color: #fff;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: inset 0 0 0 3px #fff;
+    }
+
+    .profile-avatar-btn img {
         width: 100%;
         height: 100%;
-        border-radius: 50%;
         object-fit: cover;
-        border: 3px solid #fff;
+        display: block;
     }
 
     /* ── Body ── */
@@ -253,11 +267,15 @@
 
             {{-- Avatar --}}
             <div class="profile-avatar-wrap">
-                <div class="profile-avatar-ring">
-                    <img src="{{ auth()->user()->profile_photo 
-                            ? asset('storage/' . auth()->user()->profile_photo) 
-                            : asset('assets/default-avatar.png') }}"
-                        alt="{{ auth()->user()->name }}">
+                <div class="profile-avatar-shell">
+                    <div class="profile-avatar-btn" aria-label="{{ auth()->user()->name }}">
+                        @if (auth()->user()->profile_photo)
+                            <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}"
+                                alt="{{ auth()->user()->name }}">
+                        @else
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->name)[1] ?? '', 0, 1)) }}
+                        @endif
+                    </div>
                 </div>
             </div>
 

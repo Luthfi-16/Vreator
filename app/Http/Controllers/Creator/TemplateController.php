@@ -124,7 +124,7 @@ class TemplateController extends Controller
             'price'       => 'required|integer|min:0',
             'file'        => 'nullable|file',
             'preview'     => 'nullable|image|max:2048',
-            'preview_video' => 'nullable|mimetypes:video/mp4,video/webm,video/quicktime|max:20480',
+            'preview_video' => 'nullable|mimetypes:video/mp4,video/webm,video/quicktime|max:100000',
             'software_id' => 'required|exists:software,id',
             'category_id' => 'required|exists:template_categories,id',
             'type'        => 'required|in:video,photo',

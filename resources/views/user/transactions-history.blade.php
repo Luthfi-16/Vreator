@@ -257,11 +257,127 @@
 
     .empty-state svg { margin-bottom: 12px; opacity: 0.3; }
 
+    .mobile-label {
+        display: none;
+    }
+
     @media (max-width: 768px) {
-        .stats-row { grid-template-columns: 1fr 1fr; }
-        .trx-table thead th:nth-child(2),
-        .trx-table td:nth-child(2) { display: none; }
-        .filter-row { display: none; }
+        .page-content {
+            padding: 1.5rem 1rem;
+        }
+
+        .section-title {
+            font-size: 22px;
+        }
+
+        .stats-row {
+            grid-template-columns: 1fr;
+        }
+
+        .trx-card {
+            background: transparent;
+            border: 0;
+            overflow: visible;
+        }
+
+        .trx-card-header {
+            padding: 0 0 1rem;
+            border-bottom: 0;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.85rem;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .filter-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            white-space: nowrap;
+        }
+
+        .trx-table,
+        .trx-table tbody,
+        .trx-table tr,
+        .trx-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .trx-table thead {
+            display: none;
+        }
+
+        .trx-table tbody {
+            display: grid;
+            gap: 12px;
+        }
+
+        .trx-table tbody tr {
+            background: #fff;
+            border: 0.5px solid rgba(0,0,0,0.07);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 10px 24px rgba(26, 26, 26, 0.04);
+        }
+
+        .trx-table td {
+            padding: 0;
+            border: 0;
+            text-align: left !important;
+        }
+
+        .trx-table td + td {
+            margin-top: 0.85rem;
+            padding-top: 0.85rem;
+            border-top: 0.5px solid rgba(0,0,0,0.06);
+        }
+
+        .mobile-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 0.35rem;
+        }
+
+        .template-cell {
+            align-items: flex-start;
+        }
+
+        .template-cell img {
+            width: 56px;
+            height: 56px;
+        }
+
+        .order-id {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        .date-text {
+            display: block;
+            line-height: 1.5;
+        }
+
+        .btn-group {
+            justify-content: stretch;
+            flex-direction: column;
+        }
+
+        .btn-trx {
+            width: 100%;
+            justify-content: center;
+        }
     }
 </style>
 
@@ -328,6 +444,7 @@
                     @forelse ($transactions as $transaction)
                         <tr data-status="{{ $transaction->status }}">
                             <td>
+                                <span class="mobile-label">Template</span>
                                 <div class="template-cell">
                                     <img src="{{ asset('storage/' . $transaction->template->preview) }}"
                                          alt="{{ $transaction->template->title }}">
@@ -337,9 +454,16 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="order-id">{{ $transaction->order_id }}</span></td>
-                            <td><span class="price">Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</span></td>
                             <td>
+                                <span class="mobile-label">Order ID</span>
+                                <span class="order-id">{{ $transaction->order_id }}</span>
+                            </td>
+                            <td>
+                                <span class="mobile-label">Total</span>
+                                <span class="price">Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</span>
+                            </td>
+                            <td>
+                                <span class="mobile-label">Status</span>
                                 @php
                                     $statusClass = match ($transaction->status) {
                                         'paid'    => 'paid',
@@ -353,11 +477,13 @@
                                 </span>
                             </td>
                             <td>
+                                <span class="mobile-label">Tanggal</span>
                                 <span class="date-text">
                                     {{ $transaction->created_at->timezone('Asia/Jakarta')->format('d M Y · H:i') }} WIB
                                 </span>
                             </td>
                             <td>
+                                <span class="mobile-label">Aksi</span>
                                 <div class="btn-group">
                                     <a href="{{ route('user.template.show', $transaction->template) }}"
                                        class="btn-trx">Detail</a>

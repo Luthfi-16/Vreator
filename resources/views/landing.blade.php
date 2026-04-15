@@ -336,12 +336,6 @@
                         <span class="fw-semibold">Riwayat transaksi dan download tersimpan rapi</span>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="video-placeholder">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                    <p class="text-center text-white mt-4 fw-semibold">Mulai dari preview template sampai download akhir</p>
-                </div>
             </div>
         </div>
     </section>
@@ -402,8 +396,14 @@
                     Masuk sekarang untuk mulai jual template atau jelajahi karya dari creator lain
                 </p>
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    @auth
+                        <a href="{{ auth()->user()->role === 'creator' ? route('creator.dashboard') : route('user.home') }}" class="btn btn-gradient btn-lg rounded-pill px-5">
+                                Masuk Dashboard
+                        </a>
+                    @else
                     <button class="btn btn-gradient btn-lg rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#loginModal">Daftar Gratis</button>
                     <a href="#fitur" class="btn btn-light btn-lg rounded-pill px-5">Pelajari Fitur</a>
+                    @endauth
                 </div>
                 <p class="mt-4 small" style="opacity: 0.6;">Gratis untuk memulai dan creator bisa langsung mengelola template dari dashboard</p>
             </div>
