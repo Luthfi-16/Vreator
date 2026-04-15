@@ -19,7 +19,7 @@
 
                         {{-- Title --}}
                         <div class="mb-3">
-                            <label class="form-label">Template Title</label>
+                            <label class="form-label">Judul Template</label>
                             <input type="text"
                                    name="title"
                                    class="form-control @error('title') is-invalid @enderror"
@@ -32,7 +32,7 @@
 
                         {{-- Description --}}
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">Deskripsi</label>
                             <textarea name="description"
                                       rows="4"
                                       class="form-control @error('description') is-invalid @enderror"
@@ -44,12 +44,12 @@
 
                         {{-- Type --}}
                         <div class="mb-3">
-                            <label class="form-label">Type</label>
+                            <label class="form-label">Tipe Template</label>
                             <select name="type"
                                     id="templateType"
                                     class="form-control @error('type') is-invalid @enderror"
                                     required>
-                                <option value="">-- Pilih Type --</option>
+                                <option value="">-- Pilih Tipe --</option>
                                 <option value="video" {{ old('type', $template->type) == 'video' ? 'selected' : '' }}>Video</option>
                                 <option value="photo" {{ old('type', $template->type) == 'photo' ? 'selected' : '' }}>Photo</option>
                             </select>
@@ -60,11 +60,11 @@
 
                         {{-- Category --}}
                         <div class="mb-3">
-                            <label class="form-label">Category</label>
+                            <label class="form-label">Kategori</label>
                             <select name="category_id"
                                     class="form-control @error('category_id') is-invalid @enderror"
                                     required>
-                                <option value="">-- Pilih Category --</option>
+                                <option value="">-- Pilih Kategori --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
                                         {{ old('category_id', $template->category_id) == $category->id ? 'selected' : '' }}>
@@ -97,7 +97,7 @@
 
                         {{-- Price --}}
                         <div class="mb-3">
-                            <label class="form-label">Price (Rp)</label>
+                            <label class="form-label">Harga (Rp)</label>
                             <input type="number"
                                    name="price"
                                    class="form-control @error('price') is-invalid @enderror"
@@ -179,10 +179,10 @@
                         {{-- Button --}}
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('creator.template.index') }}" class="btn btn-secondary me-2">
-                                Cancel
+                                Batal
                             </a>
                             <button class="btn btn-primary">
-                                Update Template
+                                Perbarui Template
                             </button>
                         </div>
 

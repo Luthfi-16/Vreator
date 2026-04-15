@@ -7,7 +7,7 @@
 
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white fw-bold">
-                    Create New Template
+                    Buat Template Baru
                 </div>
 
                 <div class="card-body">
@@ -16,7 +16,7 @@
 
                         {{-- Title --}}
                         <div class="mb-3">
-                            <label class="form-label">Template Title</label>
+                            <label class="form-label">Judul Template</label>
                             <input type="text"
                                    name="title"
                                    class="form-control @error('title') is-invalid @enderror"
@@ -30,7 +30,7 @@
 
                         {{-- Description --}}
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">Deskripsi</label>
                             <textarea name="description"
                                       rows="4"
                                       class="form-control @error('description') is-invalid @enderror"
@@ -59,9 +59,9 @@
 
                         {{-- Category --}}
                         <div class="mb-3">
-                            <label class="form-label">Category</label>
+                            <label class="form-label">Kategori</label>
                             <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
-                                <option value="">-- Pilih Category --</option>
+                                <option value="">-- Pilih Kategori --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
@@ -75,9 +75,9 @@
 
                         {{-- Type --}}
                         <div class="mb-3">
-                            <label class="form-label">Type</label>
+                            <label class="form-label">Tipe Template</label>
                             <select name="type" id="templateType" class="form-select @error('type') is-invalid @enderror" required>
-                                <option value="">-- Pilih Type --</option>
+                                <option value="">-- Pilih Tipe --</option>
                                 <option value="video" {{ old('type') == 'video' ? 'selected' : '' }}>Video</option>
                                 <option value="photo" {{ old('type') == 'photo' ? 'selected' : '' }}>Photo</option>
                             </select>
@@ -88,12 +88,12 @@
 
                         {{-- Price --}}
                         <div class="mb-3">
-                            <label class="form-label">Price (Rp)</label>
+                            <label class="form-label">Harga (Rp)</label>
                             <input type="number"
                                    name="price"
                                    class="form-control @error('price') is-invalid @enderror"
                                    value="{{ old('price') }}"
-                                   placeholder="0 untuk Free"
+                                   placeholder="0 untuk gratis"
                                    required>
                             @error('price')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -133,7 +133,7 @@
                                    accept="video/mp4,video/webm,video/quicktime"
                                    class="form-control @error('preview_video') is-invalid @enderror">
                             <small class="text-muted">
-                                Input ini hanya muncul untuk template type video.
+                                Input ini hanya muncul untuk template tipe video.
                             </small>
                             @error('preview_video')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -143,10 +143,10 @@
                         {{-- Button --}}
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('creator.template.index') }}" class="btn btn-secondary me-2">
-                                Cancel
+                                Batal
                             </a>
                             <button class="btn btn-primary">
-                                Save Template
+                                Simpan Template
                             </button>
                         </div>
 

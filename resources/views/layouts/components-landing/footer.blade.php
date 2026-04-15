@@ -25,7 +25,6 @@
                 <div class="col-lg-3 col-md-6">
                     <h5>Bantuan</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{{ route('login') }}">Login</a></li>
                         <li class="mb-2"><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Daftar</a></li>
                         <li class="mb-2"><a href="#editor">Lihat Template</a></li>
                     </ul>

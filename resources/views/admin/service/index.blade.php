@@ -30,11 +30,6 @@
                             </span>
                         </td>
                         <td class="text-end">
-                            <button class="btn btn-sm btn-info"
-                                data-bs-toggle="modal"
-                                data-bs-target="#serviceModal{{ $service->id }}">
-                                Detail
-                            </button>
 
                             <form action="{{ route('admin.service.destroy',$service->id) }}"
                                   method="POST"
@@ -46,38 +41,6 @@
                             </form>
                         </td>
                     </tr>
-
-                    {{-- MODAL --}}
-                    <div class="modal fade" id="serviceModal{{ $service->id }}">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">{{ $service->title }}</h5>
-                                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <p>{{ $service->description }}</p>
-
-                                    <form action="{{ route('admin.service.update',$service->id) }}"
-                                          method="POST">
-                                        @csrf
-                                        @method('PUT')
-
-                                        <label class="form-label">Status</label>
-                                        <select name="status" class="form-select">
-                                            <option value="active" {{ $service->status=='active'?'selected':'' }}>Active</option>
-                                            <option value="inactive" {{ $service->status=='inactive'?'selected':'' }}>Inactive</option>
-                                        </select>
-
-                                        <button class="btn btn-primary mt-3">
-                                            Update Status
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 @endforeach
                 </tbody>
             </table>

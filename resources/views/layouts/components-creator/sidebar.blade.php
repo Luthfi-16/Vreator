@@ -65,7 +65,7 @@
             <li class="sidebar-item {{ request()->routeIs('creator.service.*') ? 'active' : '' }}">
                 <a href="{{ route('creator.service.index') }}" class="sidebar-link">
                     <i class="bi bi-briefcase-fill"></i>
-                    <span>Service</span>
+                    <span>Jasa</span>
                 </a>
             </li>
 
@@ -91,34 +91,34 @@
             <li class="sidebar-item {{ request()->routeIs('admin.template-category.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.template-category.index') }}" class="sidebar-link">
                     <i class="bi bi-tags-fill"></i>
-                    <span>Category</span>
+                    <span>Kategori</span>
                 </a>
             </li>
 
             <li class="sidebar-item {{ request()->routeIs('admin.service.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.service.index') }}" class="sidebar-link">
                     <i class="bi bi-gear-fill"></i>
-                    <span>All Services</span>
+                    <span>Semua Jasa</span>
                 </a>
             </li>
 
             <li class="sidebar-item {{ request()->routeIs('admin.template.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.template.index') }}" class="sidebar-link">
                     <i class="bi bi-collection-fill"></i>
-                    <span>All Templates</span>
+                    <span>Semua Template</span>
                 </a>
             </li>
         @endif
 
         {{-- ACCOUNT --}}
 
-        <li class="sidebar-title">Account</li>
+        <li class="sidebar-title">Akun</li>
             
         @if(auth()->user()->role === 'creator')
             <li class="sidebar-item {{ request()->routeIs('creator.profile.*') ? 'active' : '' }}">
                 <a href="{{ route('creator.profile.index') }}" class="sidebar-link">
                     <i class="bi bi-person-fill"></i>
-                    <span>Profile</span>
+                    <span>Profil</span>
                 </a>
             </li>
         @endif

@@ -19,9 +19,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#editor">Template</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#harga">Harga</a>
-                    </li>
                 </ul>
                 @auth
                 <a href="{{ auth()->user()->role === 'creator' ? route('creator.dashboard') : route('user.home') }}" class="btn btn-gradient rounded-pill px-4"><i class="bi bi-person-fill"></i></a>

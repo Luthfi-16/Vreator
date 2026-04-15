@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold">My Services</h4>
+        <h4 class="fw-bold">Jasa Saya</h4>
         <a href="{{ route('creator.service.create') }}" class="btn btn-primary">
-            + Add Service
+            + Tambah Jasa
         </a>
     </div>
 
@@ -17,10 +17,10 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
-                            <th>Price</th>
+                            <th>Judul Jasa</th>
+                            <th>Harga</th>
                             <th>Status</th>
-                            <th class="text-end">Action</th>
+                            <th class="text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

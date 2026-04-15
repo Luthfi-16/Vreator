@@ -17,7 +17,11 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        $templates = Template::where('user_id', Auth::id())->latest()->get();
+        $templates = Template::with(['software', 'category', 'user'])
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
+
         return view('creator.template.index', compact('templates'));
     }
 
@@ -133,7 +137,10 @@ class TemplateController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            Storage::disk('public')->delete($template->file);
+            if ($template->file) {
+                Storage::disk('public')->delete($template->file);
+            }
+
             $file = $request->file('file');
 
             $originalName = $file->getClientOriginalName();
@@ -149,18 +156,23 @@ class TemplateController extends Controller
                 $counter++;
             }
 
-            Storage::disk('public')->delete($template->file);
             $template->file = $file->storeAs($folder, $finalName, 'public');
 
         }
 
         if ($request->hasFile('preview')) {
-            Storage::disk('public')->delete($template->preview);
+            if ($template->preview) {
+                Storage::disk('public')->delete($template->preview);
+            }
+
             $template->preview = $request->file('preview')->store('templates/previews', 'public');
         }
 
         if ($request->hasFile('preview_video')) {
-            Storage::disk('public')->delete($template->preview_video);
+            if ($template->preview_video) {
+                Storage::disk('public')->delete($template->preview_video);
+            }
+
             $template->preview_video = $request->file('preview_video')->store('templates/previews/videos', 'public');
         }
 

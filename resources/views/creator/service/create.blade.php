@@ -7,7 +7,7 @@
 
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white fw-bold">
-                    Create New Service
+                    Tambah Jasa Baru
                 </div>
 
                 <div class="card-body">
@@ -16,7 +16,7 @@
 
                         {{-- Title --}}
                         <div class="mb-3">
-                            <label class="form-label">Service Title</label>
+                            <label class="form-label">Judul Jasa</label>
                             <input type="text"
                                    name="title"
                                    class="form-control @error('title') is-invalid @enderror"
@@ -30,7 +30,7 @@
 
                         {{-- Description --}}
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">Deskripsi</label>
                             <textarea name="description"
                                       rows="4"
                                       class="form-control @error('description') is-invalid @enderror"
@@ -43,7 +43,7 @@
 
                         {{-- Price --}}
                         <div class="mb-3">
-                            <label class="form-label">Price (Rp)</label>
+                            <label class="form-label">Harga (Rp)</label>
                             <input type="number"
                                    name="price"
                                    class="form-control @error('price') is-invalid @enderror"
@@ -77,16 +77,15 @@
                         {{-- Button --}}
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('creator.service.index') }}" class="btn btn-secondary me-2">
-                                Cancel
+                                Batal
                             </a>
                             <button class="btn btn-primary">
-                                Save Service
+                                Simpan Jasa
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

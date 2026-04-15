@@ -99,26 +99,41 @@
     .cp-avatar-wrap {
         display: flex;
         justify-content: center;
-        margin-top: -50px;
+        margin-top: -28px;
         position: relative;
         z-index: 3;
     }
 
-    .cp-avatar-ring {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        padding: 3px;
-        background: linear-gradient(135deg, var(--vr-blue), var(--vr-blue-light));
-        box-shadow: 0 8px 24px rgba(59,91,219,0.35);
+    .cp-avatar-shell {
+        padding: 8px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.88);
+        box-shadow: 0 14px 28px rgba(59,91,219,0.16);
     }
 
-    .cp-avatar-ring img {
+    .cp-avatar-btn {
+        width: 76px;
+        height: 76px;
+        border: 0;
+        border-radius: 50%;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--vr-blue) 0%, var(--vr-blue-mid) 100%);
+        color: #fff;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: inset 0 0 0 3px #fff;
+    }
+
+    .cp-avatar-btn img {
         width: 100%;
         height: 100%;
-        border-radius: 50%;
         object-fit: cover;
-        border: 3px solid #fff;
         display: block;
     }
 
@@ -258,11 +273,15 @@
 
             {{-- Avatar --}}
             <div class="cp-avatar-wrap">
-                <div class="cp-avatar-ring">
-                    <img src="{{ auth()->user()->profile_photo
-                            ? asset('storage/' . auth()->user()->profile_photo)
-                            : asset('assets/default-avatar.png') }}"
-                        alt="{{ auth()->user()->name }}">
+                <div class="cp-avatar-shell">
+                    <div class="cp-avatar-btn" aria-label="{{ auth()->user()->name }}">
+                        @if (auth()->user()->profile_photo)
+                            <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}"
+                                alt="{{ auth()->user()->name }}">
+                        @else
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->name)[1] ?? '', 0, 1)) }}
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -328,7 +347,7 @@
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                     </svg>
-                    Edit Profile
+                    Edit Profil
                 </button>
 
             </div>

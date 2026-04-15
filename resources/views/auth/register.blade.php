@@ -344,7 +344,7 @@
                             <div class="form-group">
                                 <label class="form-label">
                                     <i class="bi bi-whatsapp me-2" style="color: var(--orange-primary);"></i>
-                                    WhatsApp <span class="text-muted">(Opsional)</span>
+                                    WhatsApp <span class="text-muted">(Disarankan menggunakan WhatsApp bisnis)</span>
                                 </label>
                                 <div class="input-icon-wrapper">
                                     <i class="bi bi-phone input-icon"></i>

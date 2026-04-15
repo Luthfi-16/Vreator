@@ -1,264 +1,218 @@
 @extends('layouts.creator')
+
 @section('content')
-    <div class="page-heading">
-    <h3>Profile Statistics</h3>
-</div> 
-<div class="page-content"> 
-    <section class="row">
-        <div class="col-12 col-lg-9">
-            <div class="row">
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon purple mb-2">
-                                        <i class="iconly-boldShow"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Profile Views</h6>
-                                    <h6 class="font-extrabold mb-0">112.000</h6>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card"> 
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon blue mb-2">
-                                        <i class="iconly-boldProfile"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Followers</h6>
-                                    <h6 class="font-extrabold mb-0">183.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon green mb-2">
-                                        <i class="iconly-boldAdd-User"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Following</h6>
-                                    <h6 class="font-extrabold mb-0">80.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon red mb-2">
-                                        <i class="iconly-boldBookmark"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Saved Post</h6>
-                                    <h6 class="font-extrabold mb-0">112</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="page-heading mb-4">
+    <h3>Admin Dashboard</h3>
+    <p class="text-muted mb-0">Ringkasan data yang dikelola admin di Vreator.</p>
+</div>
+
+<div class="page-content">
+    <section class="row g-4 mb-4">
+        <div class="col-6 col-xl-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Total Template</p>
+                    <h3 class="mb-1">{{ number_format($stats['templates']) }}</h3>
+                    <small class="text-muted">{{ number_format($stats['downloads']) }} total download</small>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart-profile-visit"></div>
-                        </div>
-                    </div>
+        </div>
+        <div class="col-6 col-xl-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Total Service</p>
+                    <h3 class="mb-1">{{ number_format($stats['services']) }}</h3>
+                    <small class="text-muted">{{ number_format($stats['activeServices']) }} service aktif</small>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
+        </div>
+        <div class="col-6 col-xl-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Creator</p>
+                    <h3 class="mb-1">{{ number_format($stats['creators']) }}</h3>
+                    <small class="text-muted">{{ number_format($stats['users']) }} user buyer</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-xl-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Transaksi Sukses</p>
+                    <h3 class="mb-1">{{ number_format($stats['paidTransactions']) }}</h3>
+                    <small class="text-muted">Rp {{ number_format($stats['revenue'], 0, ',', '.') }}</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0">Aktivitas Konten</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="border rounded-4 p-3 h-100">
+                                <p class="text-muted small mb-1">Software</p>
+                                <h4 class="mb-0">{{ number_format($stats['softwares']) }}</h4>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-7">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="{{ asset ('assets/static/images/bootstrap-icons.svg#circle-fill') }}" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Europe</h5>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <h5 class="mb-0 text-end">862</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-europe"></div>
-                                </div>
+                        <div class="col-md-4">
+                            <div class="border rounded-4 p-3 h-100">
+                                <p class="text-muted small mb-1">Kategori Template</p>
+                                <h4 class="mb-0">{{ number_format($stats['categories']) }}</h4>
                             </div>
-                            <div class="row">
-                                <div class="col-7">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-success" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="{{ asset ('assets/static/images/bootstrap-icons.svg#circle-fill') }}" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">America</h5>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <h5 class="mb-0 text-end">375</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-america"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-7">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="{{ asset ('assets/static/images/bootstrap-icons.svg#circle-fill') }}" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Indonesia</h5>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <h5 class="mb-0 text-end">1025</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-indonesia"></div>
-                                </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="border rounded-4 p-3 h-100">
+                                <p class="text-muted small mb-1">Service Aktif</p>
+                                <h4 class="mb-0">{{ number_format($stats['activeServices']) }}</h4>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-xl-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Latest Comments</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Comment</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="{{ asset('assets/compiled/jpg/5.jpg') }}">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Congratulations on your graduation!</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="{{ asset('assets/compiled/jpg/2.jpg') }}">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Wow amazing design! Can you make another tutorial for
-                                                    this design?</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">Template Paling Ramai</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Template</th>
+                                    <th>Creator</th>
+                                    <th>Download</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($topTemplates as $template)
+                                    <tr>
+                                        <td>{{ $template->title }}</td>
+                                        <td>{{ $template->user->name ?? '-' }}</td>
+                                        <td>{{ number_format($template->download_count ?? 0) }}</td>
+                                        <td>{{ number_format($template->average_rating ?? 0, 1) }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted py-4">Belum ada data template.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-3">
-            <div class="card">
-                <div class="card-body py-4 px-4">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar avatar-xl">
-                            <img src="{{ asset('assets/compiled/jpg/1.jpg') }}" alt="Face 1">
-                        </div>
-                        <div class="ms-3 name">
-                            <h5 class="font-bold">John Duck</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
-                        </div>
+
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0">Ringkasan Moderasi</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <span>Total Template</span>
+                        <strong>{{ number_format($stats['templates']) }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <span>Total Service</span>
+                        <strong>{{ number_format($stats['services']) }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <span>Service Aktif</span>
+                        <strong>{{ number_format($stats['activeServices']) }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <span>Software</span>
+                        <strong>{{ number_format($stats['softwares']) }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2">
+                        <span>Kategori</span>
+                        <strong>{{ number_format($stats['categories']) }}</strong>
                     </div>
                 </div>
             </div>
-            <div class="card">
+        </div>
+    </section>
+
+    <section class="row g-4">
+        <div class="col-lg-6">
+            <div class="card h-100">
                 <div class="card-header">
-                    <h4>Recent Messages</h4>
-                </div>
-                <div class="card-content pb-4">
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="{{ asset('assets/compiled/jpg/4.jpg') }}">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Hank Schrader</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="{{ asset('assets/compiled/jpg/5.jpg') }}">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Dean Winchester</h5>
-                            <h6 class="text-muted mb-0">@imdean</h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="{{ asset('assets/compiled/jpg/1.jpg') }}">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">John Dodol</h5>
-                            <h6 class="text-muted mb-0">@dodoljohn</h6>
-                        </div>
-                    </div>
-                    <div class="px-4">
-                        <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Start Conversation</button>
-                    </div>
-                </div>
-            </div> 
-            <div class="card">
-                <div class="card-header">
-                    <h4>Visitors Profile</h4>
+                    <h4 class="mb-0">Template Terbaru</h4>
                 </div>
                 <div class="card-body">
-                    <div id="chart-visitors-profile"></div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Template</th>
+                                    <th>Kategori</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($recentTemplates as $template)
+                                    <tr>
+                                        <td>
+                                            <div class="fw-semibold">{{ $template->title }}</div>
+                                            <small class="text-muted">oleh {{ $template->user->name ?? '-' }}</small>
+                                        </td>
+                                        <td>{{ $template->category->name ?? '-' }}</td>
+                                        <td>{{ $template->price == 0 ? 'Gratis' : 'Rp ' . number_format($template->price, 0, ',', '.') }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-4">Belum ada template.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0">Service Terbaru</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Creator</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($recentServices as $service)
+                                    <tr>
+                                        <td>
+                                            <div class="fw-semibold">{{ $service->title }}</div>
+                                            <small class="text-muted">Rp {{ number_format($service->price, 0, ',', '.') }}</small>
+                                        </td>
+                                        <td>{{ $service->user->name ?? '-' }}</td>
+                                        <td>
+                                            <span class="badge {{ $service->status === 'active' ? 'bg-success' : 'bg-secondary' }}">
+                                                {{ ucfirst($service->status) }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-4">Belum ada service.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

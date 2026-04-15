@@ -1,0 +1,137 @@
+import 'package:flutter/material.dart';
+
+import '../../core/models/creator_models.dart';
+import '../controllers/creator_controller.dart';
+import 'creator_common.dart';
+
+class CreatorDashboardView extends StatelessWidget {
+  const CreatorDashboardView({
+    super.key,
+    required this.api,
+    required this.baseUrl,
+    required this.token,
+  });
+
+  final CreatorController api;
+  final String baseUrl;
+  final String token;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<CreatorDashboardData>(
+      future: api.fetchDashboard(baseUrl: baseUrl, token: token),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return ErrorStateCard(message: snapshot.error.toString());
+        }
+
+        final data = snapshot.data!;
+
+        return ListView(
+          children: [
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: [
+                StatCard(
+                  title: 'Total Templates',
+                  value: '${data.totalTemplates}',
+                  icon: Icons.category_rounded,
+                  color: const Color(0xFF6F42C1),
+                ),
+                StatCard(
+                  title: 'Total Download',
+                  value: '${data.totalDownloads}',
+                  icon: Icons.download_rounded,
+                  color: const Color(0xFF0D6EFD),
+                ),
+                StatCard(
+                  title: 'Total Sales',
+                  value: rupiah(data.totalSales),
+                  icon: Icons.account_balance_wallet_rounded,
+                  color: const Color(0xFF198754),
+                ),
+                StatCard(
+                  title: 'Rating',
+                  value: '${data.averageRating.toStringAsFixed(1)} ★',
+                  icon: Icons.star_rounded,
+                  color: const Color(0xFFDC3545),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Your Templates',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF25396F),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    if (data.latestTemplates.isEmpty)
+                      const Text(
+                        'Belum ada template',
+                        style: TextStyle(color: Color(0xFF6C757D)),
+                      )
+                    else
+                      ...data.latestTemplates.map(
+                        (item) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: Row(
+                            children: [
+                              creatorNetworkPreview(
+                                url: item.previewUrl,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF2C3E50),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      item.price == 0
+                                          ? 'Gratis'
+                                          : rupiah(item.price),
+                                      style: const TextStyle(
+                                          color: Color(0xFF6C757D)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                '${item.downloadCount} dl',
+                                style:
+                                    const TextStyle(color: Color(0xFF6C757D)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

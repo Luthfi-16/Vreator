@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\TemplateController as AdminTemplateController;
 use App\Http\Controllers\Admin\SoftwareController as AdminSoftwareController;
 use App\Http\Controllers\Admin\TemplateCategoryController as AdminTemplateCategoryController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 
 //creator
@@ -55,7 +56,7 @@ Route::post('/midtrans/notification', [UserTransactionController::class, 'notifi
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/service', AdminServiceController::class)->only(['index', 'update', 'destroy']);
     Route::resource('/template', AdminTemplateController::class)->only(['index', 'destroy']);
     Route::resource('/software', AdminSoftwareController::class);
