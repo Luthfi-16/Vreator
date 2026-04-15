@@ -24,7 +24,7 @@
                                    name="title"
                                    class="form-control @error('title') is-invalid @enderror"
                                    value="{{ old('title', $template->title) }}"
-                                   required>
+                                   >
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -36,7 +36,7 @@
                             <textarea name="description"
                                       rows="4"
                                       class="form-control @error('description') is-invalid @enderror"
-                                      required>{{ old('description', $template->description) }}</textarea>
+                                      >{{ old('description', $template->description) }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -48,7 +48,7 @@
                             <select name="type"
                                     id="templateType"
                                     class="form-control @error('type') is-invalid @enderror"
-                                    required>
+                                    >
                                 <option value="">-- Pilih Tipe --</option>
                                 <option value="video" {{ old('type', $template->type) == 'video' ? 'selected' : '' }}>Video</option>
                                 <option value="photo" {{ old('type', $template->type) == 'photo' ? 'selected' : '' }}>Photo</option>
@@ -63,7 +63,7 @@
                             <label class="form-label">Kategori</label>
                             <select name="category_id"
                                     class="form-control @error('category_id') is-invalid @enderror"
-                                    required>
+                                    >
                                 <option value="">-- Pilih Kategori --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
@@ -102,7 +102,7 @@
                                    name="price"
                                    class="form-control @error('price') is-invalid @enderror"
                                    value="{{ old('price', $template->price) }}"
-                                   required>
+                                   >
                             @error('price')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

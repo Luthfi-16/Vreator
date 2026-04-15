@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('creator.template.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('creator.template.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                         @csrf
 
                         {{-- Title --}}
@@ -21,8 +21,7 @@
                                    name="title"
                                    class="form-control @error('title') is-invalid @enderror"
                                    value="{{ old('title') }}"
-                                   placeholder="Contoh: Preset Cinematic Orange"
-                                   required>
+                                   placeholder="Contoh: Preset Cinematic Orange">
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -34,8 +33,7 @@
                             <textarea name="description"
                                       rows="4"
                                       class="form-control @error('description') is-invalid @enderror"
-                                      placeholder="Jelaskan detail template..."
-                                      required>{{ old('description') }}</textarea>
+                                      placeholder="Jelaskan detail template...">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -76,7 +74,7 @@
                         {{-- Type --}}
                         <div class="mb-3">
                             <label class="form-label">Tipe Template</label>
-                            <select name="type" id="templateType" class="form-select @error('type') is-invalid @enderror" required>
+                            <select name="type" id="templateType" class="form-select @error('type') is-invalid @enderror">
                                 <option value="">-- Pilih Tipe --</option>
                                 <option value="video" {{ old('type') == 'video' ? 'selected' : '' }}>Video</option>
                                 <option value="photo" {{ old('type') == 'photo' ? 'selected' : '' }}>Photo</option>
@@ -93,8 +91,7 @@
                                    name="price"
                                    class="form-control @error('price') is-invalid @enderror"
                                    value="{{ old('price') }}"
-                                   placeholder="0 untuk gratis"
-                                   required>
+                                   placeholder="0 untuk gratis">
                             @error('price')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -105,8 +102,7 @@
                             <label class="form-label">Template File</label>
                             <input type="file"
                                    name="file"
-                                   class="form-control @error('file') is-invalid @enderror"
-                                   required>
+                                   class="form-control @error('file') is-invalid @enderror">
                             @error('file')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -118,8 +114,7 @@
                             <input type="file"
                                    name="preview"
                                    accept="image/*"
-                                   class="form-control @error('preview') is-invalid @enderror"
-                                   required>
+                                   class="form-control @error('preview') is-invalid @enderror">
                             @error('preview')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

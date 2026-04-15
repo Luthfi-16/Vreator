@@ -22,7 +22,7 @@
                                    class="form-control @error('title') is-invalid @enderror"
                                    value="{{ old('title') }}"
                                    placeholder="Contoh: Edit Video Cinematic"
-                                   required>
+                                   >
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -35,7 +35,7 @@
                                       rows="4"
                                       class="form-control @error('description') is-invalid @enderror"
                                       placeholder="Jelaskan detail service kamu..."
-                                      required>{{ old('description') }}</textarea>
+                                      >{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -49,7 +49,7 @@
                                    class="form-control @error('price') is-invalid @enderror"
                                    value="{{ old('price') }}"
                                    placeholder="50000"
-                                   required>
+                                   >
                             @error('price')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -60,7 +60,7 @@
                             <label class="form-label">Status</label>
                             <select name="status"
                                     class="form-control @error('status') is-invalid @enderror"
-                                    required>
+                                    >
                                 <option value="">-- Pilih Status --</option>
                                 <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>
                                     Active

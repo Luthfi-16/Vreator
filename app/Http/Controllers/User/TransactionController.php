@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Transaction as MidtransTransaction;
+use Throwable;
 
 class TransactionController extends Controller
 {
@@ -117,12 +118,12 @@ class TransactionController extends Controller
         }
 
         try {
-            $status = MidtransTransaction::status($orderId);
+            $status = $this->fetchMidtransStatus($orderId);
             $this->syncTransactionStatus($transaction, $status->transaction_status, $status->fraud_status ?? null);
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             return redirect()
                 ->route('user.template.show', $transaction->template)
-                ->with('error', 'Gagal cek status Midtrans');
+                ->with('info', 'Pembayaran sedang diverifikasi. Silakan tunggu sebentar lalu cek kembali.');
         }
 
         $flashType = $transaction->status === 'paid' ? 'success' : ($transaction->status === 'failed' ? 'error' : 'info');
@@ -196,11 +197,30 @@ class TransactionController extends Controller
         }
 
         try {
-            $status = MidtransTransaction::status($transaction->order_id);
+            $status = $this->fetchMidtransStatus($transaction->order_id);
             $this->syncTransactionStatus($transaction, $status->transaction_status, $status->fraud_status ?? null);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             // Keep local status as pending if Midtrans status cannot be fetched.
         }
+    }
+
+    private function fetchMidtransStatus(string $orderId, int $attempts = 3, int $delayMilliseconds = 350): object
+    {
+        $lastException = null;
+
+        for ($attempt = 1; $attempt <= $attempts; $attempt++) {
+            try {
+                return MidtransTransaction::status($orderId);
+            } catch (Throwable $e) {
+                $lastException = $e;
+
+                if ($attempt < $attempts) {
+                    usleep($delayMilliseconds * 1000);
+                }
+            }
+        }
+
+        throw $lastException ?? new \RuntimeException('Gagal mengambil status Midtrans.');
     }
 
     private function syncTransactionStatus(Transaction $transaction, string $transactionStatus, ?string $fraudStatus = null): void
