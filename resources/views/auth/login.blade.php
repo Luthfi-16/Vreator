@@ -194,13 +194,6 @@
                         @enderror
                     </div>
 
-                    <!-- Remember -->
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                        <label class="form-check-label" for="remember">
-                            Ingat saya
-                        </label>
-                    </div>
 
                     <button type="submit" class="btn-login">
                         <i class="bi bi-box-arrow-in-right me-2"></i>
@@ -209,10 +202,6 @@
                 </form>
 
                 <div class="extra-link">
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">Lupa password?</a>
-                    @endif
-                    <br>
                     @if(!request('role'))
                     <div class="mt-2 text-center">
                         Daftar sebagai:
