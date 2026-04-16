@@ -5,6 +5,9 @@
         ->where('template_id', $template->id)
         ->where('status', 'paid')
         ->exists();
+
+    $creatorInitials = strtoupper(substr($template->user->name, 0, 1))
+        . strtoupper(substr(explode(' ', $template->user->name)[1] ?? '', 0, 1));
 @endphp
 <div class="main-content">
     <div class="container">
@@ -157,7 +160,16 @@
                         <a href="{{ route('user.creator-profile', $template->user ) }}" style="text-decoration: none;">
                         <div style="display: flex; align-items: center; gap: 15px;">
                             <!-- Creator Avatar -->
-                                <img src="{{ asset ('storage/'. $template->user->profile_photo) }}" alt="" style="width: 60px; height: 60px; border-radius: 50%;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #e67e22, #f39c12); color: #fff; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+                                    @if ($template->user->profile_photo)
+                                        <img
+                                            src="{{ asset('storage/' . $template->user->profile_photo) }}"
+                                            alt="{{ $template->user->name }}"
+                                            style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                    @else
+                                        {{ $creatorInitials }}
+                                    @endif
+                                </div>
                             
                             <!-- Creator Info -->
                             <div>

@@ -179,10 +179,6 @@
                             @if($template->category)
                                 <span class="lt-category-badge">{{ $template->category->name }}</span>
                             @endif
-
-                            @if($template->price == 0)
-                                <span class="lt-free-badge">Gratis</span>
-                            @endif
                         </div>
 
                         <div class="editor-card-body template-card-body">
